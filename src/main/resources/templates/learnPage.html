@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/css/learnPage.css">
+</head>
+<body>
+
+    <header>
+        <h1 id="acronym-meanings-title">Acronym Meanings</h1>
+    </header>
+
+    <div class="filter-section">
+
+        <p id="filter-by-text">Filter by:</p>
+        <div class="filter-option-container">
+          <select class="select-option" name="category" id="categoryDropdown">
+            <option value="all" disabled selected>
+              Category
+            </option>
+            <option value="Business">Business</option>
+            <option value="Tech">Tech</option>
+          </select>
+        </div>
+
+        <div class="filter-option-container">
+          <select class="select-option" name="Length" id="lengthDropdown">
+            <option value="-1" disabled selected>
+              Length
+            </option>
+            <option value="3">3-letter</option>
+            <option value="4">4-letter</option>
+          </select>
+        </div>
+
+        <div class="filter-option-container">
+          <button class="select-option" id="all-button">
+            All
+          </button>
+        </div>
+
+        <div class="search-container">
+          <svg class="search-icon" aria-hidden="true" viewBox="0 0 24 24">
+              <g>
+                  <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+              </g>
+          </svg>
+          <input placeholder="Search" onkeyup="filterTableBySearch()" type="search" class="search-input" id="search-input-id">
+        </div>
+
+      </div>
+
+    <div class="main-container">
+        <div class="table-container">
+            <table id="acronym-table">
+                <thead>
+                    <tr>
+                        <th id="acronym-th">Acronym</th>
+                        <th id="meaning-th">Meaning</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="acronym : ${acronyms}" th:attr="data-acronym-id=${acronym.id}">
+                    <td class="acronym-cell" th:text="${acronym.acronym}"></td>
+                    <td class="acronym-cell" th:text="${acronym.meaning}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="description">
+            <div class="titles-container">
+                <h2 class="small-title">Description</h2>
+                <h3 id="meaning-of-chosen-acronym">Meaning Of Acronym</h3>
+            </div>
+            <div class="description-text-div">
+                <p class="description-text" id="description-text"></p>
+            </div>
+            <div class="bottom-bar">
+            </div>
+        </div>
+
+    </div>
+    <script src="/javascript/learnPage.js"></script>
+</body>
+</html>
