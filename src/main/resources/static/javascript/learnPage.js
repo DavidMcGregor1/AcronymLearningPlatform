@@ -47,6 +47,44 @@ function updatedDescription(acronymId) {
 
 attachRowEventListeners();
 var originalAcronyms;
+var searchInput = document.getElemendbyId("search-input-id");
+
+function filterTableBySearch() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("search-input-id");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("acronym-table");
+  tr = table.getElementsByTagName("tr");
+
+  if (filter === "") {
+    resetTable();
+    return;
+  }
+
+  for (i = 0; i < tr.length; i++) {
+    var matchFound = false;
+    var tdAcronym = tr[i].getElementsByTagName("td")[0];
+    var tdMeaning = tr[i].getElementsByTagName("td")[1];
+
+    if (tdAcronym && tdMeaning) {
+      var txtValueAcronym = tdAcronym.textContent || tdAcronym.innerText;
+      var txtValueMeaning = tdMeaning.textContent || tdMeaning.innerText;
+
+      if (
+        txtValueAcronym.toUpperCase().indexOf(filter) > -1 ||
+        txtValueMeaning.toUpperCase().indexOf(filter) > -1
+      ) {
+        matchFound = true;
+      }
+    }
+
+    if (matchFound) {
+      tr[i].classList.remove("hidden-row");
+    } else {
+      tr[i].classList.add("hidden-row");
+    }
+  }
+}
 
 originalAcronyms = Array.from(
   document.querySelectorAll("#acronym-table tbody tr")
