@@ -46,6 +46,17 @@ function updatedDescription(acronymId) {
 }
 
 attachRowEventListeners();
+var originalAcronyms;
+
+originalAcronyms = Array.from(
+  document.querySelectorAll("#acronym-table tbody tr")
+).map((row) => {
+  return {
+    id: row.getAttribute("data-acronym-id"),
+    acronym: row.querySelector(".acronym-cell:first-child").textContent,
+    meaning: row.querySelector(".acronym-cell:last-child").textContent,
+  };
+});
 
 const categoryDropdown = document.getElementById("categoryDropdown");
 categoryDropdown.addEventListener("change", function () {
@@ -63,6 +74,14 @@ lengthDropdown.addEventListener("change", function () {
   console.log("Selected: " + selectedLength);
   // updateTableWithLength(selectedLength)
   updateTableWithCategoryAndLength(selectedCategory, selectedLength);
+});
+
+// All button logic
+const allButton = document.getElementById("all-button");
+allButton.addEventListener("click", () => {
+  console.log("clicked on all button");
+  resetTable();
+  highlightFirstAcronym();
 });
 
 function updateTableContent(acronyms) {
@@ -139,4 +158,21 @@ function highlightFirstAcronym() {
 
     updatedDescription(firstRowAcronymId);
   }
+}
+
+function resetTable() {
+  // Reset the category dropdown to its placeholder value
+  var categoryDropdown = document.getElementById("categoryDropdown");
+  if (categoryDropdown) {
+    categoryDropdown.selectedIndex = 0;
+  }
+
+  // Reset the length dropdown to its placeholder value
+  var lengthDropdown = document.getElementById("lengthDropdown");
+  if (lengthDropdown) {
+    lengthDropdown.selectedIndex = 0;
+  }
+
+  updateTableContent(originalAcronyms);
+  attachRowEventListeners();
 }
