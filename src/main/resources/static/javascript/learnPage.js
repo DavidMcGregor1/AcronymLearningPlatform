@@ -47,7 +47,7 @@ function updatedDescription(acronymId) {
 
 attachRowEventListeners();
 var originalAcronyms;
-var searchInput = document.getElemendbyId("search-input-id");
+var searchInput = document.getElementById("search-input-id");
 
 function filterTableBySearch() {
   var input, filter, table, tr, td, i, txtValue;
@@ -104,11 +104,11 @@ originalAcronyms = Array.from(
   };
 });
 
+// Category dropdown logic
 const categoryDropdown = document.getElementById("categoryDropdown");
 categoryDropdown.addEventListener("change", function () {
   const selectedCategory = categoryDropdown.value;
   const selectedLength = lengthDropdown.value;
-  // updateTableWithCategory(selectedCategory)
   updateTableWithCategoryAndLength(selectedCategory, selectedLength);
 });
 
@@ -130,6 +130,7 @@ allButton.addEventListener("click", () => {
   highlightFirstAcronym();
 });
 
+// Function to update the table with list of acronyms passed in
 function updateTableContent(acronyms) {
   console.log("called updateTableContent");
   var tbody = document.querySelector("#acronym-table tbody");
