@@ -86,6 +86,14 @@ function filterTableBySearch() {
   }
 }
 
+// Add event listener for the "search" event
+searchInput.addEventListener("search", function () {
+  if (searchInput.value === "") {
+    // If the search input is cleared using 'x', reset the table
+    resetTable();
+  }
+});
+
 originalAcronyms = Array.from(
   document.querySelectorAll("#acronym-table tbody tr")
 ).map((row) => {
