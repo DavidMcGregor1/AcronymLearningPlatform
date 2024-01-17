@@ -47,6 +47,49 @@ function updatedDescription(acronymId) {
 
 attachRowEventListeners();
 
+const categoryDropdown = document.getElementById("categoryDropdown");
+categoryDropdown.addEventListener("change", function () {
+  const selectedCategory = categoryDropdown.value;
+  const selectedLength = lengthDropdown.value;
+  // updateTableWithCategory(selectedCategory)
+  updateTableWithCategoryAndLength(selectedCategory, selectedLength);
+});
+
+// Length dropdown logic
+const lengthDropdown = document.getElementById("lengthDropdown");
+lengthDropdown.addEventListener("change", function () {
+  const selectedLength = lengthDropdown.value;
+  const selectedCategory = categoryDropdown.value;
+  console.log("Selected: " + selectedLength);
+  // updateTableWithLength(selectedLength)
+  updateTableWithCategoryAndLength(selectedCategory, selectedLength);
+});
+
+function updateTableContent(acronyms) {
+  console.log("called updateTableContent");
+  var tbody = document.querySelector("#acronym-table tbody");
+  tbody.innerHTML = "";
+
+  acronyms = acronyms || originalAcronyms;
+
+  acronyms.forEach(function (acronym) {
+    var row = document.createElement("tr");
+
+    row.setAttribute("data-acronym-id", acronym.id);
+
+    var acronymCell = document.createElement("td");
+    acronymCell.textContent = acronym.acronym;
+
+    var meaningCell = document.createElement("td");
+    meaningCell.textContent = acronym.meaning;
+
+    row.appendChild(acronymCell);
+    row.appendChild(meaningCell);
+    tbody.appendChild(row);
+  });
+
+  highlightFirstAcronym();
+}
 
 function updateTableWithCategoryAndLength(category, length) {
   console.log("called updateTableWithCategoryAndLength method");
@@ -82,4 +125,18 @@ function updateTableWithCategoryAndLength(category, length) {
     true
   );
   xhr.send();
+}
+
+function highlightFirstAcronym() {
+  const firstRow = document.querySelector(
+    "#acronym-table tbody tr:first-child"
+  );
+
+  if (firstRow) {
+    firstRow.classList.add("highlighted");
+
+    const firstRowAcronymId = firstRow.getAttribute("data-acronym-id");
+
+    updatedDescription(firstRowAcronymId);
+  }
 }
