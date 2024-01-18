@@ -4,14 +4,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.thymeleaf.model.IModel;
 
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-public class MainController {
-    public MainController (AcronymsRepository a) {
+public class AcronymsController {
+    public AcronymsController(AcronymsRepository a) {
         repositoryAcronyms = a;
     }
 
@@ -44,13 +43,16 @@ public class MainController {
     @PostMapping(path = "/getAcronymMeaningAndDescriptionById")
     public AcronymsVm getAcronymMeaningAndDescriptionById(@RequestBody AcronymsVm submittedId) {
         System.out.println("hit getAcronymMeaningAndDescriptionById API");
-
+        System.out.println("Submitted id --->" + submittedId.id);
+        System.out.println("Submitted acronym --->" + submittedId.acronym);
         Optional<Acronyms> acronymId = repositoryAcronyms.findById(submittedId.id);
 
         AcronymsVm result = new AcronymsVm();
         result.acronym = acronymId.get().getAcronym();
         result.meaning = acronymId.get().getMeaning();
         result.description = acronymId.get().getDescription();
+
+        System.out.println(result.acronym);
 
         return result;
     }
