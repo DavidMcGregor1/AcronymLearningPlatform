@@ -28,6 +28,8 @@ class AcronymsControllerIntegrationTest {
         mockMvc = MockMvcBuilders.standaloneSetup(acronymsController).build();
     }
 
+    // TEST CATEGORY AND LENGTH SCENARIO 1
+
     @Test
     void testGetAcronymsByCategoryAndLengthTech3() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/acronymsByCategoryAndLength")
@@ -44,6 +46,8 @@ class AcronymsControllerIntegrationTest {
         String responseBody = result.getResponse().getContentAsString();
         logger.info("Response Body: {}", responseBody);
     }
+
+        // TEST CATEGORY AND LENGTH SCENARIO 2
 
     @Test
     void testGetAcronymsByCategoryAndLengthTech4() throws Exception {
@@ -62,6 +66,9 @@ class AcronymsControllerIntegrationTest {
         logger.info("Response Body: {}", responseBody);
     }
 
+        // TEST CATEGORY AND LENGTH SCENARIO 3
+
+
     @Test
     void testGetAcronymsByCategoryAndLengthBusiness3() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/acronymsByCategoryAndLength")
@@ -78,6 +85,8 @@ class AcronymsControllerIntegrationTest {
         String responseBody = result.getResponse().getContentAsString();
         logger.info("Response Body: {}", responseBody);
     }
+
+        // TEST CATEGORY AND LENGTH SCENARIO 4
 
     @Test
     void testGetAcronymsByCategoryAndLengthBusiness4() throws Exception {
