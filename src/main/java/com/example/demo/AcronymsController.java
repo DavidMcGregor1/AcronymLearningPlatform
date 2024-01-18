@@ -73,6 +73,7 @@ public class AcronymsController {
             } else {
                 //length is -1 and category is specified - get by category
                 acronyms = repositoryAcronyms.findByCategoryIgnoreCase(category);
+                System.out.println("Category = " + category);
 
 
             }
@@ -83,7 +84,10 @@ public class AcronymsController {
             } else {
                 //get by length and category
                 acronyms = repositoryAcronyms.findByCategoryIgnoreCaseAndLength(category, length);
+                System.out.println("length = " + length);
+                System.out.println("category = " + category);
             }
+
         }
 
 

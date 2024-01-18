@@ -29,7 +29,7 @@ class AcronymsControllerIntegrationTest {
     }
 
     @Test
-    void testGetAcronymsByCategoryAndLength() throws Exception {
+    void testGetAcronymsByCategoryAndLengthTech3() throws Exception {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/acronymsByCategoryAndLength")
                         .param("category", "Tech")
                         .param("length", "3"))
@@ -37,9 +37,75 @@ class AcronymsControllerIntegrationTest {
                 .andExpect(jsonPath("$[0].category").value("Tech"))
                 .andExpect(jsonPath("$[0].length").value(3))
                 .andReturn();
-
         String expectedOutput = "Expected: Tech, 3"; // Adjust based on your expectations
         String actualOutput = "Actual: " + result.getResponse().getContentAsString();
+        logger.info(expectedOutput);
+        logger.info(actualOutput);
+        String responseBody = result.getResponse().getContentAsString();
+        logger.info("Response Body: {}", responseBody);
+    }
+
+    @Test
+    void testGetAcronymsByCategoryAndLengthTech4() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/acronymsByCategoryAndLength")
+                        .param("category", "Tech")
+                        .param("length", "4"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].category").value("Tech"))
+                .andExpect(jsonPath("$[0].length").value(4))
+                .andReturn();
+        String expectedOutput = "Expected: Tech, 4"; // Adjust based on your expectations
+        String actualOutput = "Actual: " + result.getResponse().getContentAsString();
+        logger.info(expectedOutput);
+        logger.info(actualOutput);
+        String responseBody = result.getResponse().getContentAsString();
+        logger.info("Response Body: {}", responseBody);
+    }
+
+    @Test
+    void testGetAcronymsByCategoryAndLengthBusiness3() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/acronymsByCategoryAndLength")
+                        .param("category", "Business")
+                        .param("length", "3"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].category").value("Business"))
+                .andExpect(jsonPath("$[0].length").value(3))
+                .andReturn();
+        String expectedOutput = "Expected: Business, 3"; // Adjust based on your expectations
+        String actualOutput = "Actual: " + result.getResponse().getContentAsString();
+        logger.info(expectedOutput);
+        logger.info(actualOutput);
+        String responseBody = result.getResponse().getContentAsString();
+        logger.info("Response Body: {}", responseBody);
+    }
+
+    @Test
+    void testGetAcronymsByCategoryAndLengthBusiness4() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/acronymsByCategoryAndLength")
+                        .param("category", "Business")
+                        .param("length", "4"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].category").value("Business"))
+                .andExpect(jsonPath("$[0].length").value(4))
+                .andReturn();
+        String expectedOutput = "Expected: Business, 4"; // Adjust based on your expectations
+        String actualOutput = "Actual: " + result.getResponse().getContentAsString();
+        logger.info(expectedOutput);
+        logger.info(actualOutput);
+        String responseBody = result.getResponse().getContentAsString();
+        logger.info("Response Body: {}", responseBody);
+    }
+
+    @Test
+    void testGetAcronymsWithNullCategory() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/acronymsByCategoryAndLength")
+                        .param("category", (String) "all")  // Set category to null
+                        .param("length", "3"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String expectedOutput = "Expected: 200";
+        String actualOutput = "Actual: " + result.getResponse().getStatus();
         logger.info(expectedOutput);
         logger.info(actualOutput);
 
