@@ -113,4 +113,23 @@ class AcronymsControllerIntegrationTest {
 
         logger.info("Response Body: {}", responseBody);
     }
+
+
+    @Test
+    void testGetAcronymsWithNullLength() throws Exception {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/acronymsByCategoryAndLength")
+                        .param("category", (String) "Tech")  // Set category to null
+                        .param("length", "-1"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String expectedOutput = "Expected: 200";
+        String actualOutput = "Actual: " + result.getResponse().getStatus();
+        logger.info(expectedOutput);
+        logger.info(actualOutput);
+
+        String responseBody = result.getResponse().getContentAsString();
+
+        logger.info("Response Body: {}", responseBody);
+    }
 }
