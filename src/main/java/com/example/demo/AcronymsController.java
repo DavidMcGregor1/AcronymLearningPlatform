@@ -68,7 +68,6 @@ public class AcronymsController {
 
         if(length == -1) {
             if(category.equals("all")) {
-                //get everything
                 acronyms = repositoryAcronyms.findAll();
             } else {
                 //length is -1 and category is specified - get by category
