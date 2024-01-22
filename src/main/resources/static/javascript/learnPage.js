@@ -1,7 +1,4 @@
-console.log("working");
-
 function attachRowEventListeners() {
-  console.log("Called attach row event listeners");
   const rows = document.querySelectorAll("#acronym-table tbody tr");
   rows.forEach((row) => {
     row.addEventListener("click", function () {
@@ -20,7 +17,6 @@ function attachRowEventListeners() {
 }
 
 function updatedDescription(acronymId) {
-  console.log("called updatedDescription method");
   var xhr = new XMLHttpRequest();
 
   xhr.onreadystatechange = function () {
@@ -53,7 +49,8 @@ function filterTableBySearch() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("search-input-id");
   filter = input.value.toUpperCase();
-  table = document.getElementById("acronym-table");filterTableBySearch
+  table = document.getElementById("acronym-table");
+  filterTableBySearch;
   tr = table.getElementsByTagName("tr");
 
   if (filter === "") {
@@ -117,22 +114,18 @@ const lengthDropdown = document.getElementById("lengthDropdown");
 lengthDropdown.addEventListener("change", function () {
   const selectedLength = lengthDropdown.value;
   const selectedCategory = categoryDropdown.value;
-  console.log("Selected: " + selectedLength);
-  // updateTableWithLength(selectedLength)
   updateTableWithCategoryAndLength(selectedCategory, selectedLength);
 });
 
 // All button logic
 const allButton = document.getElementById("all-button");
 allButton.addEventListener("click", () => {
-  console.log("clicked on all button");
   resetTable();
   highlightFirstAcronym();
 });
 
 // Function to update the table with list of acronyms passed in
 function updateTableContent(acronyms) {
-  console.log("called updateTableContent");
   var tbody = document.querySelector("#acronym-table tbody");
   tbody.innerHTML = "";
 
@@ -158,18 +151,12 @@ function updateTableContent(acronyms) {
 }
 
 function updateTableWithCategoryAndLength(category, length) {
-  console.log("called updateTableWithCategoryAndLength method");
   var xhr = new XMLHttpRequest();
-  console.log("xhr: " + xhr);
-  console.log("xhr.response" + xhr.responseText);
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
-      console.log("xhr.readyState = 4");
       if (xhr.status === 200) {
-        console.log("xhr.status = 200");
         var acronyms = JSON.parse(xhr.responseText);
-        console.log("xhr.response" + xhr.responseText);
 
         // Update the table with the new data
         updateTableContent(acronyms);
@@ -180,11 +167,6 @@ function updateTableWithCategoryAndLength(category, length) {
       }
     }
   };
-
-  console.log(
-    "URL:",
-    "/acronymsByCategoryAndLength?category=" + category + "&length=" + length
-  );
   xhr.open(
     "GET",
     "/acronymsByCategoryAndLength?category=" + category + "&length=" + length,
