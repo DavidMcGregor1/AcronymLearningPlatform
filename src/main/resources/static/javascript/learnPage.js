@@ -53,7 +53,7 @@ function filterTableBySearch() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("search-input-id");
   filter = input.value.toUpperCase();
-  table = document.getElementById("acronym-table");
+  table = document.getElementById("acronym-table");filterTableBySearch
   tr = table.getElementsByTagName("tr");
 
   if (filter === "") {

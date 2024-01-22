@@ -3,7 +3,6 @@
 
 # Need to manually build the jar file and then run this
 
-#
 # # Build Docker Image
  docker build -t davidsregistry01.azurecr.io/acronym-image-1:bob-1 .
 #
