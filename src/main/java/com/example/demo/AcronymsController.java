@@ -16,6 +16,11 @@ public class AcronymsController {
 
     private AcronymsRepository repositoryAcronyms;
 
+    @GetMapping
+    public List<Acronyms> getAllAcronymsTest() {
+        return repositoryAcronyms.findAll();
+    }
+
     @GetMapping(path = "/getAllAcronyms")
     @ResponseBody
     public String getAllAcronyms() {
