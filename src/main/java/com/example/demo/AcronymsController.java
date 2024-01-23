@@ -47,18 +47,12 @@ public class AcronymsController {
     @ResponseBody
     @PostMapping(path = "/getAcronymMeaningAndDescriptionById")
     public AcronymsVm getAcronymMeaningAndDescriptionById(@RequestBody AcronymsVm submittedId) {
-        System.out.println("hit getAcronymMeaningAndDescriptionById API");
-        System.out.println("Submitted id --->" + submittedId.id);
-        System.out.println("Submitted acronym --->" + submittedId.acronym);
         Optional<Acronyms> acronymId = repositoryAcronyms.findById(submittedId.id);
 
         AcronymsVm result = new AcronymsVm();
         result.acronym = acronymId.get().getAcronym();
         result.meaning = acronymId.get().getMeaning();
         result.description = acronymId.get().getDescription();
-
-        System.out.println(result.acronym);
-
         return result;
     }
 
@@ -67,9 +61,7 @@ public class AcronymsController {
     public List<Acronyms> getAcronymsByCategoryAndLength(
             @RequestParam(name = "category") String category,
             @RequestParam(name = "length") int length) {
-        System.out.println("Hit acronymsByCategoryAndLength API");
-
-        List<Acronyms> acronyms;
+            List<Acronyms> acronyms;
 
         if(length == -1) {
             if(category.equals("all")) {
@@ -77,8 +69,6 @@ public class AcronymsController {
             } else {
                 //length is -1 and category is specified - get by category
                 acronyms = repositoryAcronyms.findByCategoryIgnoreCase(category);
-                System.out.println("Category = " + category);
-
 
             }
         } else {
@@ -88,8 +78,6 @@ public class AcronymsController {
             } else {
                 //get by length and category
                 acronyms = repositoryAcronyms.findByCategoryIgnoreCaseAndLength(category, length);
-                System.out.println("length = " + length);
-                System.out.println("category = " + category);
             }
 
         }
