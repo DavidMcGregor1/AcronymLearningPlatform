@@ -16,6 +16,7 @@ public class UsersController {
 
     private UsersRepository repositoryUsers;
 
+
     @GetMapping(path = "/getAllUsers")
     @ResponseBody
     public String getAllUsers() {
@@ -30,6 +31,24 @@ public class UsersController {
         return result;
     }
 
+    @PostMapping(path = "/login")
+    @ResponseBody
+    public String login(@RequestParam("submittedUsername") String submittedUsername, @RequestParam("submittedPassword") String submittedPassword) {
+        System.out.println("Hit login api");
+        System.out.println("submitted username = " + submittedUsername);
+        System.out.println("submitted password =  " + submittedPassword);
+        Optional<Users> userOptional = repositoryUsers.findByUsername(submittedUsername);
+        if (userOptional.isPresent()) {
+            System.out.println("inside useroptional present if");
+            Users user = userOptional.get();
+            System.out.println(user.getPassword());
+            if (user.getPassword().equals(submittedPassword)) {
+                System.out.println("inside successful");
+                return "login successful";
+            }
+        }
 
+        return "invalid username or password";
+    }
 
 }
