@@ -1,6 +1,9 @@
 const additLogin = document.getElementById("addit-login");
 additLogin.classList.add("hidden");
 
+const addAcronymContainer = document.getElementById("add-acronym-container");
+addAcronymContainer.classList.add("hidden");
+
 function attachRowEventListeners() {
   const rows = document.querySelectorAll("#acronym-table tbody tr");
   rows.forEach((row) => {
@@ -244,6 +247,8 @@ loginButton.addEventListener("click", () => {
         console.log("above if");
         if (response === "true") {
           console.log("success!");
+          addAcronymContainer.classList.remove("hidden");
+          additLogin.classList.add("hidden");
         } else if (response === "false") {
           console.log("wrong!");
           console.log("should remove hidden here");
