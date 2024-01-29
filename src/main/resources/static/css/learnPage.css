@@ -426,6 +426,35 @@ height: 1rem;
   align-items: center;
   }
 
+  #submit-new-acronym-button {
+    width: 120px;
+    height: 50px;
+    background-color: #01DEB2;
+    border-radius: 40px;
+    border: none;
+    font-weight: bold;
+    }
+
+    #cancel-description-button {
+      width: 120px;
+      height: 50px;
+      background-color: #C63018;
+      border-radius: 40px;
+      border: none;
+      font-weight: bold;
+      color: white;
+    }
+
+    #cancel-description-button:hover {
+      background-color: #a31e0a;
+      cursor: pointer;
+    }
+    
+    #submit-new-acronym-button:hover {
+      background-color: #0aa082;
+      cursor: pointer;
+    }
+
 /* ---------- MEDIA QUERIES ---------- */
 
 @media screen and (max-width: 1650px) {
