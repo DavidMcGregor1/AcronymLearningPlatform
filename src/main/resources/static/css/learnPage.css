@@ -130,6 +130,30 @@ h1 {
   width: 100%;
 }
 
+.meaning-header-wth-add-btn {
+  text-align: left;
+  display: flex;
+  background-color: #01DEB2;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#add-new-acronym-btn {
+  float: right;
+  margin-left: 10px;
+  width: 80px;
+  height: 25px;
+  border: none;
+  background-color: #EFEFEF;
+  border-radius: 5px;
+  margin-right: 5%;
+}
+
+#add-new-acronym-btn:hover {
+  background-color: #01DEB2;
+  cursor: pointer;
+}
+
   /* ---------- DESCRIPTION ---------- */
 
 #description {
