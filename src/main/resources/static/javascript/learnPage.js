@@ -215,3 +215,9 @@ addNewAcronymBtn.addEventListener("click", () => {
   additLogin.classList.remove("hidden");
   descriptionSection.classList.add("hidden");
 });
+
+const loginBackBtn = document.getElementById("login-back-button");
+loginBackBtn.addEventListener("click", () => {
+  additLogin.classList.add("hidden");
+  descriptionSection.classList.remove("hidden");
+});
