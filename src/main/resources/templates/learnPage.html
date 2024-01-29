@@ -101,6 +101,25 @@
           </div>
         </div>
 
+        <div id="add-acronym-container">
+          <h2 id="add-new-acronym-title">Add a new acronym</h2>
+          <div id="new-acronym-form">
+            <div class="A-M-C-Options">
+              <label for="new-acronym-letters" class="new-acronym-labels">Acronym:</label>
+              <input class="new-acronym-input" type="text" id="new-acronym-letters" name="new-acronym-letter" maxlength="4">
+
+              <label for="new-acronym-meaning" class="new-acronym-labels">Meaning:</label>
+              <input class="new-acronym-input" type="text" id="new-acronym-meaning" name="new-acronym-meaning">
+
+              <label for="new-acronym-category" class="new-acronym-labels">Category:</label>
+              <select id="new-acronym-category" name="category" class="add-new-acronym-category">
+                <option value="all" disabled selected>Category</option>
+                <option value="Business">Business</option>
+                <option value="Tech">Tech</option>
+              </select>
+            </div>
+          </div>
+
     </div>
     <script src="/javascript/learnPage.js"></script>
 </body>
