@@ -208,3 +208,10 @@ function resetTable() {
   updateTableContent(originalAcronyms);
   attachRowEventListeners();
 }
+
+const descriptionSection = document.getElementById("description");
+const addNewAcronymBtn = document.getElementById("add-new-acronym-btn");
+addNewAcronymBtn.addEventListener("click", () => {
+  additLogin.classList.remove("hidden");
+  descriptionSection.classList.add("hidden");
+});
