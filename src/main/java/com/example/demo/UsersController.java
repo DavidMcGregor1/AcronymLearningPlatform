@@ -16,4 +16,20 @@ public class UsersController {
 
     private UsersRepository repositoryUsers;
 
+    @GetMapping(path = "/getAllUsers")
+    @ResponseBody
+    public String getAllUsers() {
+        List<Users> allUsers = repositoryUsers.findAll();
+        String result = "All Users ---> ";
+        for (int i = 0; i < allUsers.stream().count(); i++) {
+            Users a = allUsers.get(i);
+            if (a != null ) {
+                result += a.getUsername() + ", " + a.getPassword();
+            }
+        }
+        return result;
+    }
+
+
+
 }
