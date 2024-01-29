@@ -216,8 +216,40 @@ addNewAcronymBtn.addEventListener("click", () => {
   descriptionSection.classList.add("hidden");
 });
 
-const loginBackBtn = document.getElementById("login-back-button");
-loginBackBtn.addEventListener("click", () => {
+const cancelButton = document.getElementById("cancel-login");
+cancelButton.addEventListener("click", () => {
   additLogin.classList.add("hidden");
   descriptionSection.classList.remove("hidden");
+});
+
+const loginButton = document.getElementById("login-button");
+loginButton.addEventListener("click", () => {
+  const username = document.querySelector(".login-inputu").value;
+  const password = document.querySelector(".login-inputp").value;
+
+  console.log("username =  " + username);
+  console.log("password = " + password);
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        console.log("inside 200");
+        const response = xhr.responseText;
+        console.log("response -> " + response);
+      } else {
+        console.error("Error: ", xhr.status);
+      }
+    }
+  };
+
+  xhr.open("POST", "/login", true);
+  xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+  const requestBody =
+    "submittedUsername=" +
+    encodeURIComponent(username) +
+    "&submittedPassword=" +
+    encodeURIComponent(password);
+  xhr.send(requestBody);
 });
