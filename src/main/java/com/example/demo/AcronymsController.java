@@ -21,6 +21,13 @@ public class AcronymsController {
         return repositoryAcronyms.findAll();
     }
 
+    @RequestMapping
+    String getHelloWorld() {
+        return "helloworld!";
+    }
+
+
+
     @GetMapping(path = "/getAllAcronyms")
     @ResponseBody
     public String getAllAcronyms() {
