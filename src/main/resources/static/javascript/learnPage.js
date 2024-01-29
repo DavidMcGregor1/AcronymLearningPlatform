@@ -222,22 +222,33 @@ cancelButton.addEventListener("click", () => {
   descriptionSection.classList.remove("hidden");
 });
 
+const loginErrorMessage = document.getElementById("login-error-div");
+loginErrorMessage.classList.add("hidden");
+
 const loginButton = document.getElementById("login-button");
 loginButton.addEventListener("click", () => {
   const username = document.querySelector(".login-inputu").value;
   const password = document.querySelector(".login-inputp").value;
 
-  console.log("username =  " + username);
-  console.log("password = " + password);
+  // console.log("username =  " + username);
+  // console.log("password = " + password);
 
   const xhr = new XMLHttpRequest();
 
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        console.log("inside 200");
         const response = xhr.responseText;
         console.log("response -> " + response);
+
+        console.log("above if");
+        if (response === "true") {
+          console.log("success!");
+        } else if (response === "false") {
+          console.log("wrong!");
+          console.log("should remove hidden here");
+          loginErrorMessage.classList.remove("hidden");
+        }
       } else {
         console.error("Error: ", xhr.status);
       }

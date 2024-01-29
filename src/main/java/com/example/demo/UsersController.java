@@ -44,11 +44,11 @@ public class UsersController {
             System.out.println(user.getPassword());
             if (user.getPassword().equals(submittedPassword)) {
                 System.out.println("inside successful");
-                return "login successful";
+                return "true";
             }
         }
 
-        return "invalid username or password";
+        return "false";
     }
 
 }

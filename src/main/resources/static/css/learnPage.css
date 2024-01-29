@@ -334,6 +334,14 @@ height: 1rem;
   cursor: pointer;
 }
 
+#login-error-div {
+  text-align: center;
+}
+
+#login-error-message {
+  color: red;
+}
+
 
 
 /* ---------- MEDIA QUERIES ---------- */
