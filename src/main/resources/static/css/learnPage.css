@@ -300,6 +300,42 @@ height: 1rem;
   height: 30px;
 }
 
+.login-button-div {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.login-div-btn {
+  width: 30%;
+  height: 40px;
+  border-radius: 40px;
+  border: none;
+  margin-bottom: 10%;
+}
+
+#cancel-login {
+  background-color: #C63018;
+  color: white;
+}
+
+#login-button {
+  background-color: #01DEB2;
+}
+
+#cancel-login:hover {
+  background-color: #a31e0a;
+  cursor: pointer;
+}
+
+#login-button:hover {
+  background-color: #0aa082;
+  cursor: pointer;
+}
+
+
+
 /* ---------- MEDIA QUERIES ---------- */
 
 @media screen and (max-width: 1650px) {
