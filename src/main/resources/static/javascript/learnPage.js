@@ -269,3 +269,48 @@ loginButton.addEventListener("click", () => {
     encodeURIComponent(password);
   xhr.send(requestBody);
 });
+
+const submitAcronymButton = document.getElementById(
+  "submit-new-acronym-button"
+);
+
+submitAcronymButton.addEventListener("click", () => {
+  console.log("clicked submit");
+  const acronymLetters = document.getElementById("new-acronym-letters").value;
+  const meaning = document.getElementById("new-acronym-meaning").value;
+  const category = document.getElementById("new-acronym-category").value;
+  const description = document.getElementById("new-acronym-description").value;
+  const length = acronymLetters.length;
+
+  console.log("acronym" + " " + acronymLetters);
+  console.log("meaning" + " " + meaning);
+  console.log("category" + " " + category);
+  console.log("description" + " " + description);
+  console.log("length" + " " + length);
+
+  const NewAcronymData = {
+    acronym: acronymLetters,
+    meaning: meaning,
+    category: category,
+    length: length,
+    description: description,
+  };
+  console.log("NewAcronymDate: " + NewAcronymData);
+
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        console.log("Acronym Sucessfully added");
+      } else {
+        console.error("Error adding acronym:", xhr.status);
+      }
+    }
+  };
+
+  xhr.open("POST", "/addAcronym", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  const requestBody = JSON.stringify(NewAcronymData);
+  xhr.send(requestBody);
+});
