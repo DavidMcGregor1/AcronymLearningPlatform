@@ -1,3 +1,6 @@
+const additLogin = document.getElementById("addit-login");
+additLogin.classList.add("hidden");
+
 function attachRowEventListeners() {
   const rows = document.querySelectorAll("#acronym-table tbody tr");
   rows.forEach((row) => {
