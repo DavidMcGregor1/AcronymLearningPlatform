@@ -295,7 +295,9 @@ cancelButton.addEventListener("click", () => {
 });
 
 const loginErrorMessage = document.getElementById("login-error-div");
+const addAcronymErrorMessage = document.getElementById("add-acronym-error-div");
 loginErrorMessage.classList.add("hidden");
+addAcronymErrorMessage.classList.add("hidden");
 
 const loginButton = document.getElementById("login-button");
 loginButton.addEventListener("click", () => {
@@ -361,8 +363,8 @@ submitAcronymButton.addEventListener("click", () => {
     description === ""
   ) {
     console.log("something was blank");
-    alert("All fields must be filled out.");
-    return; // Prevent further execution of code
+    addAcronymErrorMessage.classList.remove("hidden");
+    return;
   }
 
   console.log("acronym" + " " + acronymLetters);
