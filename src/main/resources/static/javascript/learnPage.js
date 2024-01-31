@@ -295,7 +295,7 @@ submitAcronymButton.addEventListener("click", () => {
     length: length,
     description: description,
   };
-  console.log("NewAcronymDate: " + NewAcronymData);
+  console.log("NewAcronymData: " + NewAcronymData);
 
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {

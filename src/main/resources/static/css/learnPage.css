@@ -195,6 +195,22 @@ h1 {
   margin-bottom: 20%;
 }
 
+
+
+#edit-description-button {
+  background-color: white;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.2rem;
+  margin-bottom: 10%;
+  border: none;
+  width: 50%;
+  padding: 1%;
+  font-weight: 100;
+}
+
+
+
 /* ---------- FILTER BY SECTION ---------- */
 
 #filter-by-text {
