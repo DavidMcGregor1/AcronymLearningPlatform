@@ -204,7 +204,7 @@ h1 {
   margin-bottom: 10%;
 }
 
-#meaning-of-chosen-acronym {
+#meaning-of-chosen-acronym, #meaning-of-acronym-to-be-edited {
   color: white;
   text-align: center;
 }
@@ -404,7 +404,7 @@ height: 1rem;
 /* ---------- ADD ACRONYM  ---------- */
 
 #add-acronym-container {
-  height: 600px;
+  height: 650px;
   width: 400px;
   background-color: #071D49;
   grid-column: 2 /3;

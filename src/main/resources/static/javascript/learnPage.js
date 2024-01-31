@@ -31,6 +31,13 @@ function attachRowEventListeners() {
         row.classList.remove("highlighted");
       });
       row.classList.add("highlighted");
+      const clickedAcronym = row.querySelector(
+        ".acronym-cell:first-child"
+      ).textContent;
+
+      // // Update the heading in the edit-description section with the clicked acronym
+      // document.getElementById("meaning-of-acronym-to-be-edited").innerText =
+      //   "Meaning Of " + clickedAcronym;
       const clickedAcronymId = row.getAttribute("data-acronym-id");
       updatedDescription(clickedAcronymId);
     });
@@ -51,6 +58,8 @@ function updatedDescription(acronymId) {
 
         document.getElementById("description-text").innerText =
           response.description;
+        document.getElementById("meaning-of-acronym-to-be-edited").innerText =
+          response.meaning;
         document.getElementById("meaning-of-chosen-acronym").innerText =
           response.meaning;
       } else {
