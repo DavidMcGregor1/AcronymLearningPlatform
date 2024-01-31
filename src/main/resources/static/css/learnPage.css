@@ -393,11 +393,11 @@ height: 1rem;
   cursor: pointer;
 }
 
-#login-error-div {
+#login-error-div, #add-acronym-error-div {
   text-align: center;
 }
 
-#login-error-message {
+#login-error-message, #add-acronym-error-message {
   color: red;
 }
 
