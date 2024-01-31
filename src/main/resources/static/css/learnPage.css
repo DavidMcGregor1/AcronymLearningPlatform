@@ -246,12 +246,11 @@ h1 {
  .new-description-text-div {
   display: flex;
   justify-content: center;
-  height: 50%;
+  height: 30%;
 }
 
 #newDescription {
   width: 90%;
-  height: 80%;
 }
 
 
