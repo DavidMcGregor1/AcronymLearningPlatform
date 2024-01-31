@@ -367,6 +367,13 @@ submitAcronymButton.addEventListener("click", () => {
     return;
   }
 
+  if (category === "all") {
+    addAcronymContainer.classList.remove("hidden");
+    return;
+  } else {
+    addAcronymErrorMessage.classList.add("hidden");
+  }
+
   console.log("acronym" + " " + acronymLetters);
   console.log("meaning" + " " + meaning);
   console.log("category" + " " + category);
