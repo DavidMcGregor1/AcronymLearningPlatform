@@ -347,11 +347,23 @@ const submitAcronymButton = document.getElementById(
 );
 
 submitAcronymButton.addEventListener("click", () => {
+  console.log("clicked submit acronym button");
   const acronymLetters = document.getElementById("new-acronym-letters").value;
   const meaning = document.getElementById("new-acronym-meaning").value;
   const category = document.getElementById("new-acronym-category").value;
   const description = document.getElementById("new-acronym-description").value;
   const length = acronymLetters.length;
+
+  if (
+    acronymLetters === "" ||
+    meaning === "" ||
+    category === "" ||
+    description === ""
+  ) {
+    console.log("something was blank");
+    alert("All fields must be filled out.");
+    return; // Prevent further execution of code
+  }
 
   console.log("acronym" + " " + acronymLetters);
   console.log("meaning" + " " + meaning);

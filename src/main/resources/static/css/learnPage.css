@@ -485,7 +485,7 @@ height: 1rem;
   align-items: center;
   }
 
-  #submit-new-acronym-button {
+  #submit-new-acronym-button, #submit-new-description-button {
     width: 120px;
     height: 50px;
     background-color: #01DEB2;
