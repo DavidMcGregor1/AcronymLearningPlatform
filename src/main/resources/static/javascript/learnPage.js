@@ -236,34 +236,25 @@ const addNewAcronymBtn = document.getElementById("add-new-acronym-btn");
 addNewAcronymBtn.addEventListener("click", () => {
   editOrAdd = "add";
   if (isLoggedIn()) {
-    console.log("user is logged in");
-    // User is logged in, show add acronym section
     addAcronymContainer.classList.remove("hidden");
     descriptionSection.classList.add("hidden");
     logoutButton.classList.remove("hidden");
     addNewAcronymBtn.classList.add("hidden");
   } else {
-    console.log("user in not logged in");
-    // User is not logged in, show login section
     additLogin.classList.remove("hidden");
     descriptionSection.classList.add("hidden");
   }
-
-  // additLogin.classList.remove("hidden");
-  // descriptionSection.classList.add("hidden");
 });
 
 const editDescriptionBtn = document.getElementById("edit-description-button");
 editDescriptionBtn.addEventListener("click", () => {
   editOrAdd = "edit";
   if (isLoggedIn()) {
-    console.log("user is logged in");
     descriptionSection.classList.add("hidden");
     logoutButton.classList.remove("hidden");
     addNewAcronymBtn.classList.add("hidden");
     editDescriptionSection.classList.remove("hidden");
   } else {
-    console.log("user in not logged in");
     additLogin.classList.remove("hidden");
     descriptionSection.classList.add("hidden");
   }
@@ -273,7 +264,6 @@ const cancelNewAcronymButton = document.getElementById(
   "cancel-new-acronym-button"
 );
 cancelNewAcronymButton.addEventListener("click", () => {
-  console.log("clicked cancel new acronym button");
   addAcronymContainer.classList.add("hidden");
   descriptionSection.classList.remove("hidden");
   logoutButton.classList.add("hidden");
@@ -284,7 +274,6 @@ const cancelDescriptionButton = document.getElementById(
   "cancel-description-button"
 );
 cancelDescriptionButton.addEventListener("click", () => {
-  console.log("clicked on cancel description button");
   addAcronymContainer.classList.add("hidden");
   descriptionSection.classList.remove("hidden");
   logoutButton.classList.add("hidden");
@@ -308,9 +297,6 @@ loginButton.addEventListener("click", () => {
   const username = document.querySelector(".login-inputu").value;
   const password = document.querySelector(".login-inputp").value;
 
-  // console.log("username =  " + username);
-  // console.log("password = " + password);
-
   const xhr = new XMLHttpRequest();
 
   xhr.onreadystatechange = function () {
@@ -319,23 +305,17 @@ loginButton.addEventListener("click", () => {
         const response = xhr.responseText;
         console.log("response -> " + response);
 
-        console.log("above if");
         if (response === "true") {
           console.log("success!");
           localStorage.setItem("isLoggedIn", "true");
 
           if (editOrAdd === "add") {
-            console.log("they clicked add to get to this login");
             additLogin.classList.add("hidden");
             addAcronymContainer.classList.remove("hidden");
           } else if (editOrAdd === "edit") {
-            console.log("they clicked edit to get to this login");
             additLogin.classList.add("hidden");
             editDescriptionSection.classList.remove("hidden");
           }
-
-          // addAcronymContainer.classList.remove("hidden");
-          // additLogin.classList.add("hidden");
         } else if (response === "false") {
           console.log("wrong!");
           console.log("should remove hidden here");
@@ -362,7 +342,6 @@ const submitAcronymButton = document.getElementById(
 );
 
 submitAcronymButton.addEventListener("click", () => {
-  console.log("clicked submit");
   const acronymLetters = document.getElementById("new-acronym-letters").value;
   const meaning = document.getElementById("new-acronym-meaning").value;
   const category = document.getElementById("new-acronym-category").value;
