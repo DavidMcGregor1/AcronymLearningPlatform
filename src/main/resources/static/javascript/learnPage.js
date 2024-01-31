@@ -1,8 +1,23 @@
 const additLogin = document.getElementById("addit-login");
 additLogin.classList.add("hidden");
 
+function isLoggedIn() {
+  return localStorage.getItem("isLoggedIn") === "true";
+}
+
+function logout() {
+  localStorage.removeItem("isLoggedIn");
+}
+
+document.getElementById("logout-button").addEventListener("click", function () {
+  logout();
+  window.location.reload();
+});
+
 const addAcronymContainer = document.getElementById("add-acronym-container");
+const editDescriptionSection = document.getElementById("edit-description");
 addAcronymContainer.classList.add("hidden");
+editDescriptionSection.classList.add("hidden");
 
 function attachRowEventListeners() {
   const rows = document.querySelectorAll("#acronym-table tbody tr");
@@ -215,8 +230,20 @@ function resetTable() {
 const descriptionSection = document.getElementById("description");
 const addNewAcronymBtn = document.getElementById("add-new-acronym-btn");
 addNewAcronymBtn.addEventListener("click", () => {
-  additLogin.classList.remove("hidden");
-  descriptionSection.classList.add("hidden");
+  if (isLoggedIn()) {
+    console.log("user is logged in");
+    // User is logged in, show add acronym section
+    addAcronymContainer.classList.remove("hidden");
+    descriptionSection.classList.add("hidden");
+  } else {
+    console.log("user in not logged in");
+    // User is not logged in, show login section
+    additLogin.classList.remove("hidden");
+    descriptionSection.classList.add("hidden");
+  }
+
+  // additLogin.classList.remove("hidden");
+  // descriptionSection.classList.add("hidden");
 });
 
 const editDescriptionBtn = document.getElementById("edit-description-button");
@@ -253,6 +280,7 @@ loginButton.addEventListener("click", () => {
         console.log("above if");
         if (response === "true") {
           console.log("success!");
+          localStorage.setItem("isLoggedIn", "true");
           addAcronymContainer.classList.remove("hidden");
           additLogin.classList.add("hidden");
         } else if (response === "false") {
