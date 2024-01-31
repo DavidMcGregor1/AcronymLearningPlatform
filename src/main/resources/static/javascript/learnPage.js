@@ -219,6 +219,12 @@ addNewAcronymBtn.addEventListener("click", () => {
   descriptionSection.classList.add("hidden");
 });
 
+const editDescriptionBtn = document.getElementById("edit-description-button");
+editDescriptionBtn.addEventListener("click", () => {
+  additLogin.classList.remove("hidden");
+  descriptionSection.classList.add("hidden");
+});
+
 const cancelButton = document.getElementById("cancel-login");
 cancelButton.addEventListener("click", () => {
   additLogin.classList.add("hidden");
