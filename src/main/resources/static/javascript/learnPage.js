@@ -1,6 +1,8 @@
 const additLogin = document.getElementById("addit-login");
 additLogin.classList.add("hidden");
 
+var editOrAdd;
+
 function isLoggedIn() {
   return localStorage.getItem("isLoggedIn") === "true";
 }
@@ -16,8 +18,10 @@ document.getElementById("logout-button").addEventListener("click", function () {
 
 const addAcronymContainer = document.getElementById("add-acronym-container");
 const editDescriptionSection = document.getElementById("edit-description");
+const logoutButton = document.getElementById("logout-button");
 addAcronymContainer.classList.add("hidden");
 editDescriptionSection.classList.add("hidden");
+logoutButton.classList.add("hidden");
 
 function attachRowEventListeners() {
   const rows = document.querySelectorAll("#acronym-table tbody tr");
@@ -230,11 +234,14 @@ function resetTable() {
 const descriptionSection = document.getElementById("description");
 const addNewAcronymBtn = document.getElementById("add-new-acronym-btn");
 addNewAcronymBtn.addEventListener("click", () => {
+  editOrAdd = "add";
   if (isLoggedIn()) {
     console.log("user is logged in");
     // User is logged in, show add acronym section
     addAcronymContainer.classList.remove("hidden");
     descriptionSection.classList.add("hidden");
+    logoutButton.classList.remove("hidden");
+    addNewAcronymBtn.classList.add("hidden");
   } else {
     console.log("user in not logged in");
     // User is not logged in, show login section
@@ -248,13 +255,48 @@ addNewAcronymBtn.addEventListener("click", () => {
 
 const editDescriptionBtn = document.getElementById("edit-description-button");
 editDescriptionBtn.addEventListener("click", () => {
-  additLogin.classList.remove("hidden");
-  descriptionSection.classList.add("hidden");
+  editOrAdd = "edit";
+  if (isLoggedIn()) {
+    console.log("user is logged in");
+    descriptionSection.classList.add("hidden");
+    logoutButton.classList.remove("hidden");
+    addNewAcronymBtn.classList.add("hidden");
+    editDescriptionSection.classList.remove("hidden");
+  } else {
+    console.log("user in not logged in");
+    additLogin.classList.remove("hidden");
+    descriptionSection.classList.add("hidden");
+  }
+});
+
+const cancelNewAcronymButton = document.getElementById(
+  "cancel-new-acronym-button"
+);
+cancelNewAcronymButton.addEventListener("click", () => {
+  console.log("clicked cancel new acronym button");
+  addAcronymContainer.classList.add("hidden");
+  descriptionSection.classList.remove("hidden");
+  logoutButton.classList.add("hidden");
+  addNewAcronymBtn.classList.remove("hidden");
+});
+
+const cancelDescriptionButton = document.getElementById(
+  "cancel-description-button"
+);
+cancelDescriptionButton.addEventListener("click", () => {
+  console.log("clicked on cancel description button");
+  addAcronymContainer.classList.add("hidden");
+  descriptionSection.classList.remove("hidden");
+  logoutButton.classList.add("hidden");
+  addNewAcronymBtn.classList.remove("hidden");
+  editDescriptionSection.classList.add("hidden");
+  addAcronymContainer.classList.add("hidden");
 });
 
 const cancelButton = document.getElementById("cancel-login");
 cancelButton.addEventListener("click", () => {
   additLogin.classList.add("hidden");
+  addAcronymContainer.classList.add("hidden");
   descriptionSection.classList.remove("hidden");
 });
 
@@ -281,8 +323,19 @@ loginButton.addEventListener("click", () => {
         if (response === "true") {
           console.log("success!");
           localStorage.setItem("isLoggedIn", "true");
-          addAcronymContainer.classList.remove("hidden");
-          additLogin.classList.add("hidden");
+
+          if (editOrAdd === "add") {
+            console.log("they clicked add to get to this login");
+            additLogin.classList.add("hidden");
+            addAcronymContainer.classList.remove("hidden");
+          } else if (editOrAdd === "edit") {
+            console.log("they clicked edit to get to this login");
+            additLogin.classList.add("hidden");
+            editDescriptionSection.classList.remove("hidden");
+          }
+
+          // addAcronymContainer.classList.remove("hidden");
+          // additLogin.classList.add("hidden");
         } else if (response === "false") {
           console.log("wrong!");
           console.log("should remove hidden here");

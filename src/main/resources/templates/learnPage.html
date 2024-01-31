@@ -58,7 +58,8 @@
                     <tr>
                         <th id="acronym-th">Acronym</th>
                         <th id="meaning-th" class="meaning-header-with-add-btn" colspan="2">
-                          Meaning           <button id="logout-button">Logout</button>
+                          Meaning
+                          <button id="logout-button">Logout</button>
                           <button id="add-new-acronym-btn">Add</button>
                       </th>
                     </tr>
@@ -101,6 +102,23 @@
           </div>
         </div>
 
+        <div id="edit-description">
+          <div class="titles-container">
+              <h2 class="small-title">Suggest an improved description for:</h2>
+              <h3 id="meaning-of-chosen-acronym">Meaning Of Acronym</h3>
+          </div>
+          <div class="description-text-div">
+              <p class="description-text" id="description-text"></p>
+          </div>
+          <div class="new-description-text-div">
+            <textarea type="text" id="newDescription"></textarea>
+          </div>
+          <div class="new-acronym-bottom-bar">
+            <button id="cancel-description-button">Cancel</button>
+            <button type="submit" id="submit-new-acronym-button">Submit</button>
+          </div>    
+        </div>
+
         <div id="add-acronym-container">
           <h2 id="add-new-acronym-title">Add a new acronym</h2>
           <div id="new-acronym-form">
@@ -126,23 +144,8 @@
           </div>
 
           <div class="new-acronym-bottom-bar">
-            <button id="cancel-description-button">Cancel</button>
+            <button id="cancel-new-acronym-button">Cancel</button>
             <button type="submit" id="submit-new-acronym-button">Submit</button>
-          </div>
-
-
-          <div id="edit-description">
-            <div class="titles-container">
-                <h2 class="small-title">Suggest an improved description for:</h2>
-                <h3 id="meaning-of-chosen-acronym">Meaning Of Acronym</h3>
-            </div>
-            <div class="description-text-div">
-                <p class="description-text" id="description-text"></p>
-            </div>
-            <div class="new-acronym-bottom-bar">
-              <button id="cancel-description-button">Cancel</button>
-              <button type="submit" id="submit-new-acronym-button">Submit</button>
-            </div>    
           </div>
 
 

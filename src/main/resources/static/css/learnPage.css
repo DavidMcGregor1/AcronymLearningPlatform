@@ -158,9 +158,36 @@ h1 {
   cursor: pointer;
 }
 
+#logout-button {
+  float: right;
+  margin-left: 10px;
+  width: 80px;
+  height: 25px;
+  border: none;
+  background-color: #EFEFEF;
+  border-radius: 5px;
+  margin-right: 5%;
+}
+
+#logout-button:hover {
+  background-color: #01DEB2;
+  cursor: pointer;
+}
+
   /* ---------- DESCRIPTION ---------- */
 
 #description {
+  height: 650px;
+  width: 400px;
+  background-color: #071D49;
+  grid-column: 2 /3;
+  margin-left: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#edit-description {
   height: 650px;
   width: 400px;
   background-color: #071D49;
@@ -214,6 +241,18 @@ h1 {
   cursor: pointer;
 }
 
+ /* ---------- NEW DESCRIPTION SECTION ---------- */
+
+ .new-description-text-div {
+  display: flex;
+  justify-content: center;
+  height: 50%;
+}
+
+#newDescription {
+  width: 90%;
+  height: 80%;
+}
 
 
 /* ---------- FILTER BY SECTION ---------- */
@@ -456,7 +495,7 @@ height: 1rem;
     font-weight: bold;
     }
 
-    #cancel-description-button {
+    #cancel-description-button, #cancel-new-acronym-button {
       width: 120px;
       height: 50px;
       background-color: #C63018;
@@ -466,7 +505,7 @@ height: 1rem;
       color: white;
     }
 
-    #cancel-description-button:hover {
+    #cancel-description-button:hover, #cancel-new-acronym-button:hover {
       background-color: #a31e0a;
       cursor: pointer;
     }
