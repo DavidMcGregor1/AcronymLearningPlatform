@@ -22,6 +22,7 @@ const logoutButton = document.getElementById("logout-button");
 const loginButtonHdr = document.getElementById("login-button-hdr");
 const logoutButtonHdr = document.getElementById("logout-button-hdr");
 const loggedInTempSection = document.getElementById("logged-in-temp");
+const descriptionSection = document.getElementById("description");
 loggedInTempSection.classList.add("hidden");
 logoutButtonHdr.classList.add("hidden");
 addAcronymContainer.classList.add("hidden");
@@ -247,7 +248,6 @@ loginButtonHdr.addEventListener("click", () => {
   descriptionSection.classList.add("hidden");
 });
 
-const descriptionSection = document.getElementById("description");
 const addNewAcronymBtn = document.getElementById("add-new-acronym-btn");
 addNewAcronymBtn.addEventListener("click", () => {
   editAddOrLogin = "add";
@@ -336,10 +336,10 @@ loginButton.addEventListener("click", () => {
             editDescriptionSection.classList.remove("hidden");
           } else if (editAddOrLogin === "login") {
             loggedInTempSection.classList.remove("hidden");
-            descriptionSection.classList.add("hidden");
+            additLogin.classList.add("hidden");
             setTimeout(function () {
               window.location.reload();
-            }, 2500);
+            }, 1000);
           }
         } else if (response === "false") {
           console.log("wrong!");
