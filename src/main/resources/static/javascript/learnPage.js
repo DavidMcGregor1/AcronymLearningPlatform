@@ -14,13 +14,6 @@ function logout() {
   localStorage.removeItem("isLoggedIn");
 }
 
-document
-  .getElementById("logout-button-hdr")
-  .addEventListener("click", function () {
-    logout();
-    window.location.reload();
-  });
-
 const addAcronymContainer = document.getElementById("add-acronym-container");
 const editDescriptionSection = document.getElementById("edit-description");
 const loginButtonHdr = document.getElementById("login-button-hdr");
@@ -246,10 +239,16 @@ function resetTable() {
 }
 
 loginButtonHdr.addEventListener("click", () => {
+  console.log("Clicked the login button in the header");
   editAddOrLogin = "login";
   additLogin.classList.remove("hidden");
   descriptionSection.classList.add("hidden");
 });
+
+if (isLoggedIn()) {
+  console.log("User is logged in (outside any method)");
+  replaceLoginButtonWithLogoutButton();
+}
 
 const addNewAcronymBtn = document.getElementById("add-new-acronym-btn");
 addNewAcronymBtn.addEventListener("click", () => {
@@ -257,7 +256,6 @@ addNewAcronymBtn.addEventListener("click", () => {
   if (isLoggedIn()) {
     addAcronymContainer.classList.remove("hidden");
     descriptionSection.classList.add("hidden");
-    logoutButtonHdr.classList.remove("hidden");
     addNewAcronymBtn.classList.add("hidden");
   } else {
     additLogin.classList.remove("hidden");
@@ -270,7 +268,6 @@ editDescriptionBtn.addEventListener("click", () => {
   editAddOrLogin = "edit";
   if (isLoggedIn()) {
     descriptionSection.classList.add("hidden");
-    logoutButtonHdr.classList.remove("hidden");
     addNewAcronymBtn.classList.add("hidden");
     editDescriptionSection.classList.remove("hidden");
   } else {
@@ -285,7 +282,6 @@ const cancelNewAcronymButton = document.getElementById(
 cancelNewAcronymButton.addEventListener("click", () => {
   addAcronymContainer.classList.add("hidden");
   descriptionSection.classList.remove("hidden");
-  logoutButtonHdr.classList.add("hidden");
   addNewAcronymBtn.classList.remove("hidden");
 });
 
@@ -295,7 +291,6 @@ const cancelDescriptionButton = document.getElementById(
 cancelDescriptionButton.addEventListener("click", () => {
   addAcronymContainer.classList.add("hidden");
   descriptionSection.classList.remove("hidden");
-  logoutButtonHdr.classList.add("hidden");
   addNewAcronymBtn.classList.remove("hidden");
   editDescriptionSection.classList.add("hidden");
   addAcronymContainer.classList.add("hidden");
@@ -330,10 +325,10 @@ loginButton.addEventListener("click", () => {
         if (response === "true") {
           console.log("success!");
           localStorage.setItem("isLoggedIn", "true");
-          loginButton.classList.add("hidden");
-          loginButtonHdr.classList.remove("hidden");
+          console.log("should switch buttons");
 
           if (editAddOrLogin === "add") {
+            replaceLoginButtonWithLogoutButton();
             additLogin.classList.add("hidden");
             addAcronymContainer.classList.remove("hidden");
           } else if (editAddOrLogin === "edit") {
@@ -342,11 +337,11 @@ loginButton.addEventListener("click", () => {
           } else if (editAddOrLogin === "login") {
             loggedInTempSection.classList.remove("hidden");
             additLogin.classList.add("hidden");
+
             setTimeout(function () {
-              loginButtonHdr.classList.add("hidden");
-              logoutButtonHdr.classList.remove("hidden");
               loggedInTempSection.classList.add("hidden");
               description.classList.remove("hidden");
+              window.location.reload();
             }, 1000);
           }
         } else if (response === "false") {
@@ -431,3 +426,16 @@ submitAcronymButton.addEventListener("click", () => {
   const requestBody = JSON.stringify(NewAcronymData);
   xhr.send(requestBody);
 });
+
+logoutButtonHdr.addEventListener("click", () => {
+  console.log("clicked logout button");
+  logout();
+});
+
+function replaceLoginButtonWithLogoutButton() {
+  console.log("called replaceLoginWithLogout method");
+  const loginButtonHdr = document.getElementById("login-button-hdr");
+  const logoutButtonHdr = document.getElementById("logout-button-hdr");
+  loginButtonHdr.classList.add("hidden");
+  logoutButtonHdr.classList.remove("hidden");
+}
