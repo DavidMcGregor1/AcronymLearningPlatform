@@ -47,8 +47,8 @@ public class UsersController {
             if (user.getPassword().equals(submittedPassword)) {
                 System.out.println("Submitted Password: " + submittedPassword);
                 System.out.println("Password in database: " + user.getPassword());
-                String jwt = generateJWT(user.getUsername())
-;                return jwt;
+                String jwt = generateJWT(user.getUsername());
+                return jwt;
             }
         }
 

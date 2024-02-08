@@ -1,12 +1,17 @@
-console.log("working1");
-
 const addAcronymContainer = document.getElementById("add-acronym-container");
-const editDescriptionSection = document.getElementById("edit-description");
-
-const descriptionSection = document.getElementById("description");
 addAcronymContainer.classList.add("hidden");
+
+const editDescriptionSection = document.getElementById("edit-description");
 editDescriptionSection.classList.add("hidden");
 
+const descriptionSection = document.getElementById("description");
+
+var originalAcronyms;
+var searchInput = document.getElementById("search-input-id");
+
+attachRowEventListeners();
+
+// Loops throw all the rows in the table and adds an event listener for each one to update the description section and highlight the row.
 function attachRowEventListeners() {
   const rows = document.querySelectorAll("#acronym-table tbody tr");
   rows.forEach((row) => {
@@ -28,6 +33,7 @@ function attachRowEventListeners() {
   }
 }
 
+// Posts the clicked acronym Id to the /getAcronymMeaningAndDescriptionById API and updates the description section based on the response.
 function updatedDescription(acronymId) {
   var xhr = new XMLHttpRequest();
 
@@ -55,10 +61,7 @@ function updatedDescription(acronymId) {
   xhr.send(requestBody);
 }
 
-attachRowEventListeners();
-var originalAcronyms;
-var searchInput = document.getElementById("search-input-id");
-
+// Filters the acronym table by search using search algorithm
 function filterTableBySearch() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("search-input-id");
@@ -97,12 +100,14 @@ function filterTableBySearch() {
   }
 }
 
+// Resets the table if the search bar is empty (either through back space or clearing the search bar using the x)
 searchInput.addEventListener("search", function () {
   if (searchInput.value === "") {
     resetTable();
   }
 });
 
+// Maps through the list of acronyms and adds each one to the originalAcronyms array
 originalAcronyms = Array.from(
   document.querySelectorAll("#acronym-table tbody tr")
 ).map((row) => {
@@ -113,7 +118,7 @@ originalAcronyms = Array.from(
   };
 });
 
-// Category dropdown logic
+// Category dropdown logic - calls update method with the inputted category
 const categoryDropdown = document.getElementById("categoryDropdown");
 categoryDropdown.addEventListener("change", function () {
   const selectedCategory = categoryDropdown.value;
@@ -121,7 +126,7 @@ categoryDropdown.addEventListener("change", function () {
   updateTableWithCategoryAndLength(selectedCategory, selectedLength);
 });
 
-// Length dropdown logic
+// Length dropdown logic - calls update method with the inputted length
 const lengthDropdown = document.getElementById("lengthDropdown");
 lengthDropdown.addEventListener("change", function () {
   const selectedLength = lengthDropdown.value;
@@ -129,14 +134,14 @@ lengthDropdown.addEventListener("change", function () {
   updateTableWithCategoryAndLength(selectedCategory, selectedLength);
 });
 
-// All button logic
+// Resets the table if the user clicks the all button
 const allButton = document.getElementById("all-button");
 allButton.addEventListener("click", () => {
   resetTable();
   highlightFirstAcronym();
 });
 
-// Function to update the table with list of acronyms passed in
+// Updates the table with list of acronyms passed in
 function updateTableContent(acronyms) {
   var tbody = document.querySelector("#acronym-table tbody");
   tbody.innerHTML = "";
@@ -162,6 +167,7 @@ function updateTableContent(acronyms) {
   highlightFirstAcronym();
 }
 
+// Updates the table based on the category and length passed in
 function updateTableWithCategoryAndLength(category, length) {
   var xhr = new XMLHttpRequest();
 
@@ -170,7 +176,7 @@ function updateTableWithCategoryAndLength(category, length) {
       if (xhr.status === 200) {
         var acronyms = JSON.parse(xhr.responseText);
 
-        // Update the table with the new data
+        // Updates the table with the new data
         updateTableContent(acronyms);
 
         attachRowEventListeners();
@@ -187,6 +193,7 @@ function updateTableWithCategoryAndLength(category, length) {
   xhr.send();
 }
 
+// Highlights the first acronym in the table and updates the description with the description of the first acronym in the table
 function highlightFirstAcronym() {
   const firstRow = document.querySelector(
     "#acronym-table tbody tr:first-child"
@@ -194,21 +201,19 @@ function highlightFirstAcronym() {
 
   if (firstRow) {
     firstRow.classList.add("highlighted");
-
     const firstRowAcronymId = firstRow.getAttribute("data-acronym-id");
-
     updatedDescription(firstRowAcronymId);
   }
 }
 
+// Resets the category and length dropdown to their placeholder values and cupdates the table content with the original list of acronyms
 function resetTable() {
-  // Reset the category dropdown to its placeholder value
   var categoryDropdown = document.getElementById("categoryDropdown");
   if (categoryDropdown) {
     categoryDropdown.selectedIndex = 0;
   }
 
-  // Reset the length dropdown to its placeholder value
+  // Resets the length dropdown to its placeholder value
   var lengthDropdown = document.getElementById("lengthDropdown");
   if (lengthDropdown) {
     lengthDropdown.selectedIndex = 0;
@@ -218,6 +223,7 @@ function resetTable() {
   attachRowEventListeners();
 }
 
+// Hides the display of the add acronym form and shows the description form again when a user cancels the add acronym process
 const cancelNewAcronymButton = document.getElementById(
   "cancel-new-acronym-button"
 );
@@ -227,6 +233,7 @@ cancelNewAcronymButton.addEventListener("click", () => {
   addNewAcronymBtn.classList.remove("hidden");
 });
 
+// Hides the display of the edit acronym form and shows the description form again when a user cancels the edit acronym process
 const cancelDescriptionButton = document.getElementById(
   "cancel-description-button"
 );
@@ -238,17 +245,10 @@ cancelDescriptionButton.addEventListener("click", () => {
   addAcronymContainer.classList.add("hidden");
 });
 
-const cancelButton = document.getElementById("cancel-login");
-cancelButton.addEventListener("click", () => {
-  additLogin.classList.add("hidden");
-  addAcronymContainer.classList.add("hidden");
-  descriptionSection.classList.remove("hidden");
-});
-
+// Posts the NewAcronymData object to the /addAcronym API if none of the fields are blank
 const submitAcronymButton = document.getElementById(
   "submit-new-acronym-button"
 );
-
 submitAcronymButton.addEventListener("click", () => {
   console.log("clicked submit acronym button");
   const acronymLetters = document.getElementById("new-acronym-letters").value;
@@ -275,12 +275,6 @@ submitAcronymButton.addEventListener("click", () => {
     addAcronymErrorMessage.classList.add("hidden");
   }
 
-  console.log("acronym" + " " + acronymLetters);
-  console.log("meaning" + " " + meaning);
-  console.log("category" + " " + category);
-  console.log("description" + " " + description);
-  console.log("length" + " " + length);
-
   const NewAcronymData = {
     acronym: acronymLetters,
     meaning: meaning,
@@ -288,7 +282,6 @@ submitAcronymButton.addEventListener("click", () => {
     length: length,
     description: description,
   };
-  console.log("NewAcronymData: " + NewAcronymData);
 
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {

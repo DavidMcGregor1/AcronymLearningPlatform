@@ -46,7 +46,15 @@ if (isLoggedIn()) {
   replaceLoginButtonWithLogoutButton();
 }
 
-// Login button on form
+// Cancel button on login form
+const cancelButton = document.getElementById("cancel-login");
+cancelButton.addEventListener("click", () => {
+  additLogin.classList.add("hidden");
+  addAcronymContainer.classList.add("hidden");
+  descriptionSection.classList.remove("hidden");
+});
+
+// Login button on login form
 const loginButton = document.getElementById("login-button");
 loginButton.addEventListener("click", () => {
   console.log("clicked login button after entering fields");
