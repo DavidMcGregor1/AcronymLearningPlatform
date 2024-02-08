@@ -27,13 +27,6 @@ header {
   align-items: center;
 }
 
-#login-button-hdr, #logout-button-hdr {
-  margin-right: 2%;
-  background-color: #EFEFEF;
-  border: none;
-  font-size: 1rem;
-  width: 4%;
-}
 
 #login-button-hdr:hover {
   background-color: #01DEB2;
@@ -166,12 +159,12 @@ h1 {
   margin-right: 5%;
 }
 
-#add-new-acronym-btn:hover {
+#add-new-acronym-btn:hover, #logout-button-hdr:hover, #login-button-hdr {
   background-color: #01DEB2;
   cursor: pointer;
 }
 
-#logout-button {
+#logout-button-hdr, #login-button-hdr {
   float: right;
   margin-left: 10px;
   width: 80px;
@@ -182,10 +175,6 @@ h1 {
   margin-right: 5%;
 }
 
-#logout-button:hover {
-  background-color: #01DEB2;
-  cursor: pointer;
-}
 
   /* ---------- DESCRIPTION ---------- */
 
