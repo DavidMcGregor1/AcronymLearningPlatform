@@ -12,6 +12,7 @@ function isLoggedIn() {
 
 function logout() {
   localStorage.removeItem("isLoggedIn");
+  window.location.reload();
 }
 
 const addAcronymContainer = document.getElementById("add-acronym-container");
@@ -332,6 +333,7 @@ loginButton.addEventListener("click", () => {
             additLogin.classList.add("hidden");
             addAcronymContainer.classList.remove("hidden");
           } else if (editAddOrLogin === "edit") {
+            replaceLoginButtonWithLogoutButton();
             additLogin.classList.add("hidden");
             editDescriptionSection.classList.remove("hidden");
           } else if (editAddOrLogin === "login") {
