@@ -54,13 +54,15 @@ cancelButton.addEventListener("click", () => {
   descriptionSection.classList.remove("hidden");
 });
 
+// Starts login process if user has pressed enter
 function handleKeyPress(event) {
   if (event.key === "Enter") {
-    event.preventDefault(); // Prevent default form submission
-    login(); // Trigger login process
+    event.preventDefault();
+    login();
   }
 }
 
+// Calls handleKeyPress function on any keypress event from the user
 document
   .querySelector(".login-inputu")
   .addEventListener("keypress", handleKeyPress);
@@ -68,6 +70,7 @@ document
   .querySelector(".login-inputp")
   .addEventListener("keypress", handleKeyPress);
 
+// Handles login request
 function login() {
   console.log("called login function");
   const username = document.querySelector(".login-inputu").value;
