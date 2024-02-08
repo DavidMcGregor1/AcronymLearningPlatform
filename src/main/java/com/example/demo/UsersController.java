@@ -50,8 +50,7 @@ public class UsersController {
 
         return null;
     }
-
-
+    
 
     private String generateJWT(String username) {
         Map<String, Object> claims = new HashMap<>();
