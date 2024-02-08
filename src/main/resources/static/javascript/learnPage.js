@@ -3,6 +3,9 @@ additLogin.classList.add("hidden");
 
 var editAddOrLogin;
 
+// localStorage.setItem("isLoggedIn", "false");
+// this is called every time the page is refreshed - so the user is logged out if the refresh
+
 function isLoggedIn() {
   return localStorage.getItem("isLoggedIn") === "true";
 }
@@ -11,14 +14,15 @@ function logout() {
   localStorage.removeItem("isLoggedIn");
 }
 
-document.getElementById("logout-button").addEventListener("click", function () {
-  logout();
-  window.location.reload();
-});
+document
+  .getElementById("logout-button-hdr")
+  .addEventListener("click", function () {
+    logout();
+    window.location.reload();
+  });
 
 const addAcronymContainer = document.getElementById("add-acronym-container");
 const editDescriptionSection = document.getElementById("edit-description");
-const logoutButton = document.getElementById("logout-button");
 const loginButtonHdr = document.getElementById("login-button-hdr");
 const logoutButtonHdr = document.getElementById("logout-button-hdr");
 const loggedInTempSection = document.getElementById("logged-in-temp");
@@ -27,7 +31,6 @@ loggedInTempSection.classList.add("hidden");
 logoutButtonHdr.classList.add("hidden");
 addAcronymContainer.classList.add("hidden");
 editDescriptionSection.classList.add("hidden");
-logoutButton.classList.add("hidden");
 
 function attachRowEventListeners() {
   const rows = document.querySelectorAll("#acronym-table tbody tr");
@@ -327,6 +330,8 @@ loginButton.addEventListener("click", () => {
         if (response === "true") {
           console.log("success!");
           localStorage.setItem("isLoggedIn", "true");
+          loginButton.classList.add("hidden");
+          loginButtonHdr.classList.remove("hidden");
 
           if (editAddOrLogin === "add") {
             additLogin.classList.add("hidden");
@@ -338,12 +343,14 @@ loginButton.addEventListener("click", () => {
             loggedInTempSection.classList.remove("hidden");
             additLogin.classList.add("hidden");
             setTimeout(function () {
-              window.location.reload();
+              loginButtonHdr.classList.add("hidden");
+              logoutButtonHdr.classList.remove("hidden");
+              loggedInTempSection.classList.add("hidden");
+              description.classList.remove("hidden");
             }, 1000);
           }
         } else if (response === "false") {
           console.log("wrong!");
-          console.log("should remove hidden here");
           loginErrorMessage.classList.remove("hidden");
         }
       } else {
