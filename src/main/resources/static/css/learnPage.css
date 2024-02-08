@@ -27,6 +27,19 @@ header {
   align-items: center;
 }
 
+#login-button-hdr, #logout-button-hdr {
+  margin-right: 2%;
+  background-color: #EFEFEF;
+  border: none;
+  font-size: 1rem;
+  width: 4%;
+}
+
+#login-button-hdr:hover {
+  background-color: #01DEB2;
+  cursor: pointer;
+}
+
 h1 {
   margin: 0;
   flex-grow: 1;

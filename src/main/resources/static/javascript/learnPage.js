@@ -1,7 +1,7 @@
 const additLogin = document.getElementById("addit-login");
 additLogin.classList.add("hidden");
 
-var editOrAdd;
+var editAddOrLogin;
 
 function isLoggedIn() {
   return localStorage.getItem("isLoggedIn") === "true";
@@ -19,6 +19,11 @@ document.getElementById("logout-button").addEventListener("click", function () {
 const addAcronymContainer = document.getElementById("add-acronym-container");
 const editDescriptionSection = document.getElementById("edit-description");
 const logoutButton = document.getElementById("logout-button");
+const loginButtonHdr = document.getElementById("login-button-hdr");
+const logoutButtonHdr = document.getElementById("logout-button-hdr");
+const loggedInTempSection = document.getElementById("logged-in-temp");
+loggedInTempSection.classList.add("hidden");
+logoutButtonHdr.classList.add("hidden");
 addAcronymContainer.classList.add("hidden");
 editDescriptionSection.classList.add("hidden");
 logoutButton.classList.add("hidden");
@@ -236,14 +241,20 @@ function resetTable() {
   attachRowEventListeners();
 }
 
+loginButtonHdr.addEventListener("click", () => {
+  editAddOrLogin = "login";
+  additLogin.classList.remove("hidden");
+  descriptionSection.classList.add("hidden");
+});
+
 const descriptionSection = document.getElementById("description");
 const addNewAcronymBtn = document.getElementById("add-new-acronym-btn");
 addNewAcronymBtn.addEventListener("click", () => {
-  editOrAdd = "add";
+  editAddOrLogin = "add";
   if (isLoggedIn()) {
     addAcronymContainer.classList.remove("hidden");
     descriptionSection.classList.add("hidden");
-    logoutButton.classList.remove("hidden");
+    logoutButtonHdr.classList.remove("hidden");
     addNewAcronymBtn.classList.add("hidden");
   } else {
     additLogin.classList.remove("hidden");
@@ -253,10 +264,10 @@ addNewAcronymBtn.addEventListener("click", () => {
 
 const editDescriptionBtn = document.getElementById("edit-description-button");
 editDescriptionBtn.addEventListener("click", () => {
-  editOrAdd = "edit";
+  editAddOrLogin = "edit";
   if (isLoggedIn()) {
     descriptionSection.classList.add("hidden");
-    logoutButton.classList.remove("hidden");
+    logoutButtonHdr.classList.remove("hidden");
     addNewAcronymBtn.classList.add("hidden");
     editDescriptionSection.classList.remove("hidden");
   } else {
@@ -271,7 +282,7 @@ const cancelNewAcronymButton = document.getElementById(
 cancelNewAcronymButton.addEventListener("click", () => {
   addAcronymContainer.classList.add("hidden");
   descriptionSection.classList.remove("hidden");
-  logoutButton.classList.add("hidden");
+  logoutButtonHdr.classList.add("hidden");
   addNewAcronymBtn.classList.remove("hidden");
 });
 
@@ -281,7 +292,7 @@ const cancelDescriptionButton = document.getElementById(
 cancelDescriptionButton.addEventListener("click", () => {
   addAcronymContainer.classList.add("hidden");
   descriptionSection.classList.remove("hidden");
-  logoutButton.classList.add("hidden");
+  logoutButtonHdr.classList.add("hidden");
   addNewAcronymBtn.classList.remove("hidden");
   editDescriptionSection.classList.add("hidden");
   addAcronymContainer.classList.add("hidden");
@@ -301,6 +312,7 @@ addAcronymErrorMessage.classList.add("hidden");
 
 const loginButton = document.getElementById("login-button");
 loginButton.addEventListener("click", () => {
+  console.log("clicked login button after entering fields");
   const username = document.querySelector(".login-inputu").value;
   const password = document.querySelector(".login-inputp").value;
 
@@ -316,12 +328,18 @@ loginButton.addEventListener("click", () => {
           console.log("success!");
           localStorage.setItem("isLoggedIn", "true");
 
-          if (editOrAdd === "add") {
+          if (editAddOrLogin === "add") {
             additLogin.classList.add("hidden");
             addAcronymContainer.classList.remove("hidden");
-          } else if (editOrAdd === "edit") {
+          } else if (editAddOrLogin === "edit") {
             additLogin.classList.add("hidden");
             editDescriptionSection.classList.remove("hidden");
+          } else if (editAddOrLogin === "login") {
+            loggedInTempSection.classList.remove("hidden");
+            descriptionSection.classList.add("hidden");
+            setTimeout(function () {
+              window.location.reload();
+            }, 2500);
           }
         } else if (response === "false") {
           console.log("wrong!");
