@@ -54,10 +54,22 @@ cancelButton.addEventListener("click", () => {
   descriptionSection.classList.remove("hidden");
 });
 
-// Login button on login form
-const loginButton = document.getElementById("login-button");
-loginButton.addEventListener("click", () => {
-  console.log("clicked login button after entering fields");
+function handleKeyPress(event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); // Prevent default form submission
+    login(); // Trigger login process
+  }
+}
+
+document
+  .querySelector(".login-inputu")
+  .addEventListener("keypress", handleKeyPress);
+document
+  .querySelector(".login-inputp")
+  .addEventListener("keypress", handleKeyPress);
+
+function login() {
+  console.log("called login function");
   const username = document.querySelector(".login-inputu").value;
   const password = document.querySelector(".login-inputp").value;
 
@@ -112,6 +124,13 @@ loginButton.addEventListener("click", () => {
     "&submittedPassword=" +
     encodeURIComponent(password);
   xhr.send(requestBody);
+}
+
+// Login button on login form
+const loginButton = document.getElementById("login-button");
+loginButton.addEventListener("click", () => {
+  console.log("clicked login button");
+  login();
 });
 
 // Replaces the login button with the logout button if this function is called (should only be called if the user is logged in)
