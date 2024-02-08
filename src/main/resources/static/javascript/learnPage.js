@@ -23,12 +23,11 @@ function makeAuthenticatedRequest(endpoint, method, data) {
     method: method,
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${jwt}`, // Include JWT in the Authorization header
+      Authorization: `Bearer ${jwt}`,
     },
     body: JSON.stringify(data),
   })
     .then((response) => {
-      // Handle response
       console.log("Inside handle response ");
     })
     .catch((error) => {
@@ -340,30 +339,32 @@ loginButton.addEventListener("click", () => {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         const jwt = xhr.responseText;
-        localStorage.setItem("jwt", jwt);
+        if (jwt) {
+          // If JWT is received, store it and proceed
+          localStorage.setItem("jwt", jwt);
 
-        // if (response === "true") {
-        //   console.log("success!");
-        //   localStorage.setItem("isLoggedIn", "true");
-        //   console.log("should switch buttons");
+          if (editAddOrLogin === "add") {
+            replaceLoginButtonWithLogoutButton();
+            additLogin.classList.add("hidden");
+            addAcronymContainer.classList.remove("hidden");
+          } else if (editAddOrLogin === "edit") {
+            replaceLoginButtonWithLogoutButton();
+            additLogin.classList.add("hidden");
+            editDescriptionSection.classList.remove("hidden");
+          } else if (editAddOrLogin === "login") {
+            loggedInTempSection.classList.remove("hidden");
+            additLogin.classList.add("hidden");
 
-        if (editAddOrLogin === "add") {
-          replaceLoginButtonWithLogoutButton();
-          additLogin.classList.add("hidden");
-          addAcronymContainer.classList.remove("hidden");
-        } else if (editAddOrLogin === "edit") {
-          replaceLoginButtonWithLogoutButton();
-          additLogin.classList.add("hidden");
-          editDescriptionSection.classList.remove("hidden");
-        } else if (editAddOrLogin === "login") {
-          loggedInTempSection.classList.remove("hidden");
-          additLogin.classList.add("hidden");
-
-          setTimeout(function () {
-            loggedInTempSection.classList.add("hidden");
-            description.classList.remove("hidden");
-            window.location.reload();
-          }, 1000);
+            setTimeout(function () {
+              loggedInTempSection.classList.add("hidden");
+              description.classList.remove("hidden");
+              window.location.reload();
+            }, 1000);
+          }
+        } else {
+          // If JWT is not received (login failed), display an error message
+          console.log("Login failed. Display error message.");
+          loginErrorMessage.classList.remove("hidden");
         }
       } else {
         console.error("Error: ", xhr.status);

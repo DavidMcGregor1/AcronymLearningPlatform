@@ -42,13 +42,17 @@ public class UsersController {
         Optional<Users> userOptional = repositoryUsers.findByUsername(submittedUsername);
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
+            System.out.println("Submitted Password: " + submittedPassword);
+            System.out.println("Password in database: " + user.getPassword());
             if (user.getPassword().equals(submittedPassword)) {
-
+                System.out.println("Submitted Password: " + submittedPassword);
+                System.out.println("Password in database: " + user.getPassword());
                 String jwt = generateJWT(user.getUsername())
 ;                return jwt;
             }
         }
 
+        System.out.println("Should be shown if user is not present in the database");
         return null;
     }
 
