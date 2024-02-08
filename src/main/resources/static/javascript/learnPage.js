@@ -4,12 +4,36 @@ additLogin.classList.add("hidden");
 var editAddOrLogin;
 
 function isLoggedIn() {
-  return localStorage.getItem("isLoggedIn") === "true";
+  return localStorage.getItem("jwt") !== null;
 }
 
 function logout() {
-  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("jwt");
   window.location.reload();
+}
+
+function makeAuthenticatedRequest(endpoint, method, data) {
+  const jwt = localStorage.getItem("jwt");
+  if (!jwt) {
+    console.error("JWT not found. User is not logged in.");
+    return;
+  }
+
+  fetch(endpoint, {
+    method: method,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${jwt}`, // Include JWT in the Authorization header
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => {
+      // Handle response
+      console.log("Inside handle response ");
+    })
+    .catch((error) => {
+      console.error("Error making authenticated request:", error);
+    });
 }
 
 const addAcronymContainer = document.getElementById("add-acronym-container");
@@ -315,35 +339,31 @@ loginButton.addEventListener("click", () => {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        const response = xhr.responseText;
-        console.log("response -> " + response);
+        const jwt = xhr.responseText;
+        localStorage.setItem("jwt", jwt);
 
-        if (response === "true") {
-          console.log("success!");
-          localStorage.setItem("isLoggedIn", "true");
-          console.log("should switch buttons");
+        // if (response === "true") {
+        //   console.log("success!");
+        //   localStorage.setItem("isLoggedIn", "true");
+        //   console.log("should switch buttons");
 
-          if (editAddOrLogin === "add") {
-            replaceLoginButtonWithLogoutButton();
-            additLogin.classList.add("hidden");
-            addAcronymContainer.classList.remove("hidden");
-          } else if (editAddOrLogin === "edit") {
-            replaceLoginButtonWithLogoutButton();
-            additLogin.classList.add("hidden");
-            editDescriptionSection.classList.remove("hidden");
-          } else if (editAddOrLogin === "login") {
-            loggedInTempSection.classList.remove("hidden");
-            additLogin.classList.add("hidden");
+        if (editAddOrLogin === "add") {
+          replaceLoginButtonWithLogoutButton();
+          additLogin.classList.add("hidden");
+          addAcronymContainer.classList.remove("hidden");
+        } else if (editAddOrLogin === "edit") {
+          replaceLoginButtonWithLogoutButton();
+          additLogin.classList.add("hidden");
+          editDescriptionSection.classList.remove("hidden");
+        } else if (editAddOrLogin === "login") {
+          loggedInTempSection.classList.remove("hidden");
+          additLogin.classList.add("hidden");
 
-            setTimeout(function () {
-              loggedInTempSection.classList.add("hidden");
-              description.classList.remove("hidden");
-              window.location.reload();
-            }, 1000);
-          }
-        } else if (response === "false") {
-          console.log("wrong!");
-          loginErrorMessage.classList.remove("hidden");
+          setTimeout(function () {
+            loggedInTempSection.classList.add("hidden");
+            description.classList.remove("hidden");
+            window.location.reload();
+          }, 1000);
         }
       } else {
         console.error("Error: ", xhr.status);

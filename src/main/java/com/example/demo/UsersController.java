@@ -1,11 +1,14 @@
 package com.example.demo;
 
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 import java.util.Optional;
 
 @Controller
@@ -15,6 +18,7 @@ public class UsersController {
     }
 
     private UsersRepository repositoryUsers;
+    private static final String SECRET_KEY = "IjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6Ikph";
 
 
     @GetMapping(path = "/getAllUsers")
@@ -35,20 +39,31 @@ public class UsersController {
     @ResponseBody
     public String login(@RequestParam("submittedUsername") String submittedUsername, @RequestParam("submittedPassword") String submittedPassword) {
         System.out.println("Hit login api");
-        System.out.println("submitted username = " + submittedUsername);
-        System.out.println("submitted password =  " + submittedPassword);
         Optional<Users> userOptional = repositoryUsers.findByUsername(submittedUsername);
         if (userOptional.isPresent()) {
-            System.out.println("inside useroptional present if");
             Users user = userOptional.get();
-            System.out.println(user.getPassword());
             if (user.getPassword().equals(submittedPassword)) {
-                System.out.println("inside successful");
-                return "true";
+
+                String jwt = generateJWT(user.getUsername())
+;                return jwt;
             }
         }
 
-        return "false";
+        return null;
+    }
+
+
+
+    private String generateJWT(String username) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("username", username);
+        Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000);
+        return Jwts.builder()
+                .setClaims(claims)
+                .setExpiration(expiration)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .compact();
+
     }
 
 }
