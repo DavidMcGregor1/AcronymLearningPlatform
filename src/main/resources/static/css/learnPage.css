@@ -218,8 +218,6 @@ h1 {
   margin-bottom: 20%;
 }
 
-
-
 #edit-description-button {
   background-color: white;
   margin-left: auto;
@@ -239,7 +237,7 @@ h1 {
 
  /* ---------- NEW DESCRIPTION SECTION ---------- */
 
- .new-description-text-div {
+.new-description-text-div {
   display: flex;
   justify-content: center;
   height: 30%;
@@ -248,7 +246,6 @@ h1 {
 #newDescription {
   width: 90%;
 }
-
 
 /* ---------- FILTER BY SECTION ---------- */
 
@@ -285,40 +282,41 @@ h1 {
 }
 
 .search-container {
-display: flex;
-line-height: 28px;
-align-items: center;
-position: relative;
-max-width: 190px;
+  display: flex;
+  line-height: 28px;
+  align-items: center;
+  position: relative;
+  max-width: 190px;
 }
 
 .search-input {
-height: 40px;
-line-height: 28px;
-padding: 0 1rem;
-width: 100%;
-padding-left: 2.5rem;
-border: 2px solid transparent;
-border-radius: 8px;
-outline: none;
-background-color: #EFEFEF;
-color: #0d0c22;
-transition: .3s ease;
+  height: 40px;
+  line-height: 28px;
+  padding: 0 1rem;
+  width: 100%;
+  padding-left: 2.5rem;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  outline: none;
+  background-color: #EFEFEF;
+  color: #0d0c22;
+  transition: .3s ease;
 }
 
 .search-input::placeholder {
-color: #777;
+  color: #777;
 }
 
 .search-icon {
-position: absolute;
-left: 1rem;
-fill: #777;
-width: 1rem;
-height: 1rem;
+  position: absolute;
+  left: 1rem;
+  fill: #777;
+  width: 1rem;
+  height: 1rem;
 }
 
 /* ---------- ADDIT LOGIN ---------- */
+
 #addit-login {
   height: 650px;
   width: 400px;
@@ -479,52 +477,52 @@ height: 1rem;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  }
+}
 
-  #submit-new-acronym-button, #submit-new-description-button {
-    width: 120px;
-    height: 50px;
-    background-color: #01DEB2;
-    border-radius: 40px;
-    border: none;
-    font-weight: bold;
-    }
+#submit-new-acronym-button, #submit-new-description-button {
+  width: 120px;
+  height: 50px;
+  background-color: #01DEB2;
+  border-radius: 40px;
+  border: none;
+  font-weight: bold;
+}
 
-    #cancel-description-button, #cancel-new-acronym-button {
-      width: 120px;
-      height: 50px;
-      background-color: #C63018;
-      border-radius: 40px;
-      border: none;
-      font-weight: bold;
-      color: white;
-    }
+#cancel-description-button, #cancel-new-acronym-button {
+  width: 120px;
+  height: 50px;
+  background-color: #C63018;
+  border-radius: 40px;
+  border: none;
+  font-weight: bold;
+  color: white;
+}
 
-    #cancel-description-button:hover, #cancel-new-acronym-button:hover {
-      background-color: #a31e0a;
-      cursor: pointer;
-    }
+#cancel-description-button:hover, #cancel-new-acronym-button:hover {
+  background-color: #a31e0a;
+  cursor: pointer;
+}
     
-    #submit-new-acronym-button:hover {
-      background-color: #0aa082;
-      cursor: pointer;
-    }
+#submit-new-acronym-button:hover {
+  background-color: #0aa082;
+  cursor: pointer;
+}
 
 /* ---------- MEDIA QUERIES ---------- */
 
 @media screen and (max-width: 1650px) {
   #description, #addit-login {
-  height: 600px;
-  width: 400px;
-  background-color: #071D49;
-  grid-column: 2 /3;
-  margin-left: 40%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
+    height: 600px;
+    width: 400px;
+    background-color: #071D49;
+    grid-column: 2 /3;
+    margin-left: 40%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
-.table-container {
+    .table-container {
   margin-left: 10%;
   grid-column: 1;
   height: 650px;
