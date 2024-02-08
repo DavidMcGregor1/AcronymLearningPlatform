@@ -3,9 +3,6 @@ additLogin.classList.add("hidden");
 
 var editAddOrLogin;
 
-// localStorage.setItem("isLoggedIn", "false");
-// this is called every time the page is refreshed - so the user is logged out if the refresh
-
 function isLoggedIn() {
   return localStorage.getItem("isLoggedIn") === "true";
 }
@@ -116,10 +113,8 @@ function filterTableBySearch() {
   }
 }
 
-// Add event listener for the "search" event
 searchInput.addEventListener("search", function () {
   if (searchInput.value === "") {
-    // If the search input is cleared using 'x', reset the table
     resetTable();
   }
 });
