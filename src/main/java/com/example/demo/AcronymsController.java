@@ -124,6 +124,38 @@ public class AcronymsController {
         return ResponseEntity.ok(submittedAcronym);
     }
 
+    @PutMapping(path = "editAcronymDescription")
+    @ResponseBody
+    public ResponseEntity editAcronymDescription(HttpServletRequest request, @RequestBody Acronyms editRequest) {
+        System.out.println("Hit editAcronymDescription api");
+        System.out.println("editRequest" + editRequest);
+        if (!isAuthenticated(request)) {
+            System.out.println("Is not authenticated");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
+        if (editRequest.getDescription() == null) {
+            System.out.println("Missing required parameters");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        Optional<Acronyms> optionalAcronym = repositoryAcronyms.findById(editRequest.getId());
+
+        if (optionalAcronym.isEmpty()) {
+            System.out.println("Acronym not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+
+        Acronyms acronym = optionalAcronym.get();
+        // Update the description
+        acronym.setDescription(editRequest.getDescription());
+        // Save the updated acronym
+        repositoryAcronyms.save(acronym);
+
+        System.out.println("Acronym description updated successfully");
+
+        return ResponseEntity.ok(acronym);
+
+    }
+
     private boolean isAuthenticated(HttpServletRequest request) {
         System.out.println("called isAuthenticated method");
         String jwt = request.getHeader("Authorization");

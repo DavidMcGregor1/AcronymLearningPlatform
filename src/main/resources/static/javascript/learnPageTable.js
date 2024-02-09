@@ -253,6 +253,13 @@ const submitAcronymButton = document
     handleAddAcronym();
   });
 
+const submitNewAcronymDescriptionButton = document
+  .getElementById("submit-new-description-button")
+  .addEventListener("click", () => {
+    console.log("clicked submit new description button");
+    handleEditDescription();
+  });
+
 function handleAddAcronym() {
   console.log("called handleAddAcronym ");
   const acronymLetters = document.getElementById("new-acronym-letters").value;
@@ -312,4 +319,8 @@ function handleAddAcronym() {
 
   const requestBody = JSON.stringify(NewAcronymData);
   xhr.send(requestBody);
+}
+
+function handleEditDescription() {
+  console.log("Called handle edit description button");
 }
