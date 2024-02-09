@@ -304,6 +304,13 @@ function handleAddAcronym() {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         console.log("Acronym Successfully added");
+        addAcronymContainer.classList.add("hidden");
+        addedDescriptionSuccess.classList.remove("hidden");
+        setTimeout(function () {
+          addedDescriptionSuccess.classList.add("hidden");
+          descriptionSection.classList.remove("hidden");
+          window.location.reload();
+        }, 1000);
       } else {
         console.error("Error adding acronym:", xhr.status);
       }
@@ -350,7 +357,7 @@ function handleEditDescription() {
         editedDescriptionSuccess.classList.remove("hidden");
         setTimeout(function () {
           editedDescriptionSuccess.classList.add("hidden");
-          description.classList.remove("hidden");
+          descriptionSection.classList.remove("hidden");
           window.location.reload();
         }, 1000);
       } else {
