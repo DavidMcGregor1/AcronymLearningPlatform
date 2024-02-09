@@ -246,11 +246,15 @@ cancelDescriptionButton.addEventListener("click", () => {
 });
 
 // Posts the NewAcronymData object to the /addAcronym API if none of the fields are blank
-const submitAcronymButton = document.getElementById(
-  "submit-new-acronym-button"
-);
-submitAcronymButton.addEventListener("click", () => {
-  console.log("clicked submit acronym button");
+const submitAcronymButton = document
+  .getElementById("submit-new-acronym-button")
+  .addEventListener("click", () => {
+    console.log("clicked submit acronym button");
+    handleAddAcronym();
+  });
+
+function handleAddAcronym() {
+  console.log("called handleAddAcronym ");
   const acronymLetters = document.getElementById("new-acronym-letters").value;
   const meaning = document.getElementById("new-acronym-meaning").value;
   const category = document.getElementById("new-acronym-category").value;
@@ -308,4 +312,4 @@ submitAcronymButton.addEventListener("click", () => {
 
   const requestBody = JSON.stringify(NewAcronymData);
   xhr.send(requestBody);
-});
+}
