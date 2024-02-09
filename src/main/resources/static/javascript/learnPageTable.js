@@ -297,10 +297,9 @@ submitAcronymButton.addEventListener("click", () => {
   xhr.open("POST", "/addAcronym", true);
   xhr.setRequestHeader("Content-Type", "application/json");
 
-  // Retrieve token from local storage
+  // Retrieves token from local storage and addes it to the authorization header
   const token = localStorage.getItem("jwt");
   if (token) {
-    // Include token in Authorization header
     xhr.setRequestHeader("Authorization", `Bearer ${token}`);
   } else {
     console.error("JWT token not found in local storage");
