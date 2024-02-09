@@ -4,6 +4,11 @@ addAcronymContainer.classList.add("hidden");
 const editDescriptionSection = document.getElementById("edit-description");
 editDescriptionSection.classList.add("hidden");
 
+const editedDescriptionSuccess = document.getElementById("edited-acronym-temp");
+const addedDescriptionSuccess = document.getElementById("added-acronym-temp");
+editedDescriptionSuccess.classList.add("hidden");
+addedDescriptionSuccess.classList.add("hidden");
+
 const descriptionSection = document.getElementById("description");
 
 var originalAcronyms;
