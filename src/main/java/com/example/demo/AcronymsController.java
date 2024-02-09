@@ -145,7 +145,7 @@ public class AcronymsController {
         }
 
         Acronyms acronym = optionalAcronym.get();
-        // Update the description
+        // Update the description   
         acronym.setDescription(editRequest.getDescription());
         // Save the updated acronym
         repositoryAcronyms.save(acronym);

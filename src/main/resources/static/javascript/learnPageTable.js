@@ -346,6 +346,13 @@ function handleEditDescription() {
       if (xhr.status === 200) {
         console.log("Acronym description successfully updated");
         updatedDescription(selectedAcronymId);
+        editDescriptionSection.classList.add("hidden");
+        editedDescriptionSuccess.classList.remove("hidden");
+        setTimeout(function () {
+          editedDescriptionSuccess.classList.add("hidden");
+          description.classList.remove("hidden");
+          window.location.reload();
+        }, 1000);
       } else {
         console.error("Error updating acronym description:", xhr.status);
       }
