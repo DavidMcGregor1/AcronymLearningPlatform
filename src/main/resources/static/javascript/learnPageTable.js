@@ -323,4 +323,42 @@ function handleAddAcronym() {
 
 function handleEditDescription() {
   console.log("Called handle edit description button");
+
+  const selectedAcronymId = document
+    .querySelector(".highlighted")
+    .getAttribute("data-acronym-id");
+
+  const editedDescription = document.getElementById("newDescription").value;
+
+  const editRequest = {
+    id: selectedAcronymId,
+    description: editedDescription,
+  };
+
+  const xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        console.log("Acronym description successfully updated");
+        updatedDescription(selectedAcronymId);
+      } else {
+        console.error("Error updating acronym description:", xhr.status);
+      }
+    }
+  };
+
+  xhr.open("PUT", "/editAcronymDescription", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  // Retrieves token from local storage and adds it to the authorization header
+  const token = localStorage.getItem("jwt");
+  if (token) {
+    xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+  } else {
+    console.error("JWT token not found in local storage");
+    return;
+  }
+
+  const requestBody = JSON.stringify(editRequest);
+  xhr.send(requestBody);
 }
