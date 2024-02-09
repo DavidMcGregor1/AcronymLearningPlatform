@@ -54,7 +54,9 @@ public class UsersController {
     }
 
     private boolean isAuthenticated(HttpServletRequest request) {
-        String jwt = request.getHeader("Authorisation");
+        System.out.println("Called isAuthenticated method");
+        String jwt = request.getHeader("Authorization");
+
         if (jwt != null && jwt.startsWith("Bearer ")) {
             String token = jwt.substring(7);
             try {

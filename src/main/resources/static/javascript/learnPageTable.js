@@ -287,7 +287,7 @@ submitAcronymButton.addEventListener("click", () => {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        console.log("Acronym Sucessfully added");
+        console.log("Acronym Successfully added");
       } else {
         console.error("Error adding acronym:", xhr.status);
       }
@@ -296,6 +296,16 @@ submitAcronymButton.addEventListener("click", () => {
 
   xhr.open("POST", "/addAcronym", true);
   xhr.setRequestHeader("Content-Type", "application/json");
+
+  // Retrieve token from local storage
+  const token = localStorage.getItem("jwt");
+  if (token) {
+    // Include token in Authorization header
+    xhr.setRequestHeader("Authorization", `Bearer ${token}`);
+  } else {
+    console.error("JWT token not found in local storage");
+    return;
+  }
 
   const requestBody = JSON.stringify(NewAcronymData);
   xhr.send(requestBody);

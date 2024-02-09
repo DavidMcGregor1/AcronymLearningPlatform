@@ -105,7 +105,10 @@ public class AcronymsController {
     @PostMapping(path = "/addAcronym")
     @ResponseBody
     public ResponseEntity addAcronym(HttpServletRequest request, @RequestBody AcronymsVm submittedAcronym) {
+        System.out.println("hit add acronym api");
+        System.out.println("request -> " + request);
         if (!isAuthenticated(request)) {
+            System.out.println("Is not authenticated");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         System.out.println("Hit addAcronym API");
@@ -122,8 +125,11 @@ public class AcronymsController {
     }
 
     private boolean isAuthenticated(HttpServletRequest request) {
-        String jwt = request.getHeader("Authorisation");
+        System.out.println("called isAuthenticated method");
+        String jwt = request.getHeader("Authorization");
+        System.out.println("jwt from request.getHeader:" + jwt);
         if (jwt != null && jwt.startsWith("Bearer ")) {
+            System.out.println("inside jwt is not null and starts with Bearer");
             String token = jwt.substring(7);
             try {
                 Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
