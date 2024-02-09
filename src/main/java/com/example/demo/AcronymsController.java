@@ -1,18 +1,26 @@
 package com.example.demo;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpServletRequest;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class AcronymsController {
     public AcronymsController(AcronymsRepository a) {
         repositoryAcronyms = a;
     }
+
+    private static final String SECRET_KEY = "IjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6Ikph";
 
     private AcronymsRepository repositoryAcronyms;
 
@@ -96,7 +104,10 @@ public class AcronymsController {
 
     @PostMapping(path = "/addAcronym")
     @ResponseBody
-    public AcronymsVm addAcronym(@RequestBody AcronymsVm submittedAcronym) {
+    public ResponseEntity addAcronym(HttpServletRequest request, @RequestBody AcronymsVm submittedAcronym) {
+        if (!isAuthenticated(request)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
+        }
         System.out.println("Hit addAcronym API");
         Acronyms newAcronym = new Acronyms();
         newAcronym.setAcronym(submittedAcronym.acronym);
@@ -107,7 +118,21 @@ public class AcronymsController {
 
         repositoryAcronyms.save(newAcronym);
 
-        return submittedAcronym;
+        return ResponseEntity.ok(submittedAcronym);
+    }
+
+    private boolean isAuthenticated(HttpServletRequest request) {
+        String jwt = request.getHeader("Authorisation");
+        if (jwt != null && jwt.startsWith("Bearer ")) {
+            String token = jwt.substring(7);
+            try {
+                Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
     }
 
 }

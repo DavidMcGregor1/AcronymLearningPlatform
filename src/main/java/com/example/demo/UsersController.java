@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
@@ -7,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.*;
 import java.util.Optional;
@@ -47,10 +50,24 @@ public class UsersController {
                 return jwt;
             }
         }
-
         return null;
     }
-    
+
+    private boolean isAuthenticated(HttpServletRequest request) {
+        String jwt = request.getHeader("Authorisation");
+        if (jwt != null && jwt.startsWith("Bearer ")) {
+            String token = jwt.substring(7);
+            try {
+                Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
+        return false;
+    }
+
+
 
     private String generateJWT(String username) {
         Map<String, Object> claims = new HashMap<>();
