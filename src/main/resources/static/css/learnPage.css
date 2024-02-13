@@ -522,7 +522,7 @@ h1 {
 /* ---------- MEDIA QUERIES ---------- */
 
 @media screen and (max-width: 1650px) {
-  #description, #addit-login, #add-acronym-container, #edit-description {
+  #description, #addit-login, #add-acronym-container, #edit-description, #logged-in-temp, #edited-acronym-temp, #added-acronym-temp {
     height: 600px;
     width: 400px;
     background-color: #071D49;
@@ -549,7 +549,7 @@ h1 {
     height: 550px;
   }
   
-  #description, #addit-login, #add-acronym-container, #edit-description {
+  #description, #addit-login, #add-acronym-container, #edit-description, #logged-in-temp, #edited-acronym-temp, #added-acronym-temp {
     height: 550px;
     width: 400px;
   }
@@ -583,7 +583,7 @@ h1 {
         margin-bottom: 0%;
     }
   
-    #description, #addit-login, #add-acronym-container, #edit-description {
+    #description, #addit-login, #add-acronym-container, #edit-description, #logged-in-temp, #edited-acronym-temp, #added-acronym-temp {
       grid-column: 1;
       width: 100%;
       margin-left: 0;
@@ -654,7 +654,7 @@ h1 {
     max-width: 290px;
   }
 
-  #description, #addit-login, #add-acronym-container, #edit-description {
+  #description, #addit-login, #add-acronym-container, #edit-description, #logged-in-temp, #edited-acronym-temp, #added-acronym-temp {
     grid-column: 1;
     width: 100%;
     margin-left: 0;
