@@ -109,7 +109,8 @@ public class AcronymsController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         Acronyms newAcronym = new Acronyms();
-        newAcronym.setAcronym(submittedAcronym.acronym);
+        String acronym = submittedAcronym.acronym.toUpperCase();
+        newAcronym.setAcronym(acronym);
         newAcronym.setMeaning(submittedAcronym.meaning);
         newAcronym.setCategory(submittedAcronym.category);
         newAcronym.setLength(submittedAcronym.length);
