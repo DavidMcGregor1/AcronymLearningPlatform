@@ -10,10 +10,10 @@ function test() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        // Parse JSON response
         const response = JSON.parse(xhr.responseText);
-        // Log the array of questions
-        console.log("Array of questions:", response);
+        const shuffledQuestions = shuffleArray(response);
+        console.log("Array of non-shuffled questions: ", response);
+        console.log("Array of questions (shuffled):", shuffledQuestions);
       } else {
         console.error("Error updating acronym description:", xhr.status);
       }
@@ -21,6 +21,14 @@ function test() {
   };
 
   xhr.open("GET", "/getAllQuestions", true);
-  xhr.setRequestHeader("Accept", "application/json"); // Change Content-Type to Accept
+  xhr.setRequestHeader("Accept", "application/json");
   xhr.send();
+}
+
+function shuffleArray(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }
