@@ -20,7 +20,7 @@ public class QuizController {
 
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    @GetMapping(path = "/getAllQuestions", consumes = "application/json", produces = "application/json")
+    @GetMapping(path = "/getAllQuestions", produces = "application/json")
     public List<String> getAllQuestions(Model model) {
         List<Acronyms> allAcronyms = repositoryAcronyms.findAll();
         List<String> questions = new ArrayList<>();

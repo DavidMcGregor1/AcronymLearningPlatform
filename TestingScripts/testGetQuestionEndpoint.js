@@ -1,5 +1,5 @@
 async function hitEndpoint() {
-  const endpoint = "http://localhost/getQuestion";
+  const endpoint = "http://localhost/getAllQuestions";
   const requestOptions = {
     method: "GET", // Use GET method for retrieving data
     headers: {
@@ -7,7 +7,7 @@ async function hitEndpoint() {
     },
   };
 
-  for (let i = 0; i < 119; i++) {
+  for (let i = 0; i < 1; i++) {
     const response = await fetch(endpoint, requestOptions);
     if (!response.ok) {
       console.error(`HTTP error! Status: ${response.status}`);
