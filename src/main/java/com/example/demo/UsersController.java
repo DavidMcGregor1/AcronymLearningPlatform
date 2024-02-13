@@ -4,24 +4,31 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.core.env.Environment;
 
 import java.util.*;
 import java.util.Optional;
 
 @Controller
 public class UsersController {
-    public UsersController(UsersRepository u) {
+
+    public UsersController(UsersRepository u, Environment env) {
         repositoryUsers = u;
+        this.env = env;
     }
 
     private UsersRepository repositoryUsers;
-    private static final String SECRET_KEY = "IjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6Ikph";
+    private final Environment env;
+
+    @Value("${SECRET_KEY}")
+    private String SECRET_KEY;
 
 
     @GetMapping(path = "/getAllUsers")
@@ -41,7 +48,6 @@ public class UsersController {
     @PostMapping(path = "/login")
     @ResponseBody
     public String login(@RequestParam("submittedUsername") String submittedUsername, @RequestParam("submittedPassword") String submittedPassword) {
-        System.out.println("Hit login api");
         Optional<Users> userOptional = repositoryUsers.findByUsername(submittedUsername);
         if (userOptional.isPresent()) {
             Users user = userOptional.get();
@@ -54,7 +60,6 @@ public class UsersController {
     }
 
     private boolean isAuthenticated(HttpServletRequest request) {
-        System.out.println("Called isAuthenticated method");
         String jwt = request.getHeader("Authorization");
 
         if (jwt != null && jwt.startsWith("Bearer ")) {

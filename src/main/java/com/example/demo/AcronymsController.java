@@ -105,13 +105,9 @@ public class AcronymsController {
     @PostMapping(path = "/addAcronym")
     @ResponseBody
     public ResponseEntity addAcronym(HttpServletRequest request, @RequestBody AcronymsVm submittedAcronym) {
-        System.out.println("hit add acronym api");
-        System.out.println("request -> " + request);
         if (!isAuthenticated(request)) {
-            System.out.println("Is not authenticated");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-        System.out.println("Hit addAcronym API");
         Acronyms newAcronym = new Acronyms();
         newAcronym.setAcronym(submittedAcronym.acronym);
         newAcronym.setMeaning(submittedAcronym.meaning);
@@ -127,20 +123,15 @@ public class AcronymsController {
     @PutMapping(path = "editAcronymDescription")
     @ResponseBody
     public ResponseEntity editAcronymDescription(HttpServletRequest request, @RequestBody Acronyms editRequest) {
-        System.out.println("Hit editAcronymDescription api");
-        System.out.println("editRequest" + editRequest);
         if (!isAuthenticated(request)) {
-            System.out.println("Is not authenticated");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         if (editRequest.getDescription() == null) {
-            System.out.println("Missing required parameters");
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
         Optional<Acronyms> optionalAcronym = repositoryAcronyms.findById(editRequest.getId());
 
         if (optionalAcronym.isEmpty()) {
-            System.out.println("Acronym not found");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
@@ -150,18 +141,13 @@ public class AcronymsController {
         // Save the updated acronym
         repositoryAcronyms.save(acronym);
 
-        System.out.println("Acronym description updated successfully");
-
         return ResponseEntity.ok(acronym);
 
     }
 
     private boolean isAuthenticated(HttpServletRequest request) {
-        System.out.println("called isAuthenticated method");
         String jwt = request.getHeader("Authorization");
-        System.out.println("jwt from request.getHeader:" + jwt);
         if (jwt != null && jwt.startsWith("Bearer ")) {
-            System.out.println("inside jwt is not null and starts with Bearer");
             String token = jwt.substring(7);
             try {
                 Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);

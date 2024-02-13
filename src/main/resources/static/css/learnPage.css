@@ -597,7 +597,7 @@ h1 {
     }
 }
 
-@media screen and (max-width: 8405px) {
+@media screen and (max-width: 840px) {
     .filter-section {
       margin-left: 0%;
       display: flex;
