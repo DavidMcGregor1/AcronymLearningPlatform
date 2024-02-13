@@ -8,10 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 @Controller
 public class QuizController {
@@ -23,22 +20,19 @@ public class QuizController {
 
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
-    @GetMapping(path = "/getQuestion", consumes = "application/json", produces = "application/json")
-    public String getQuestion(Model model) {
+    @GetMapping(path = "/getAllQuestions", consumes = "application/json", produces = "application/json")
+    public List<String> getAllQuestions(Model model) {
         List<Acronyms> allAcronyms = repositoryAcronyms.findAll();
-
-        Set<Integer> askedIndices = new HashSet<>();
-
-        Random random = new Random();
-        int numberOfAcronyms = allAcronyms.size();
-
-        int randomAcronymIndex;
-        do {
-            randomAcronymIndex = random.nextInt(numberOfAcronyms);
-        } while (!askedIndices.add(randomAcronymIndex));
-        Acronyms randomAcronym = allAcronyms.get(randomAcronymIndex);
-        String fullQuestion = "What does " + randomAcronym.getAcronym() + " stand for?";
-        return fullQuestion;
+        List<String> questions = new ArrayList<>();
+        for (Acronyms a : allAcronyms) {
+            if (a != null) {
+                String fullQuestion = "What does " + a.getAcronym() + " stand for?";
+                questions.add(fullQuestion);
+                System.out.println(fullQuestion);
+            }
+        }
+        return questions;
     }
+
 
 }

@@ -7,7 +7,7 @@ async function hitEndpoint() {
     },
   };
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 119; i++) {
     const response = await fetch(endpoint, requestOptions);
     if (!response.ok) {
       console.error(`HTTP error! Status: ${response.status}`);
