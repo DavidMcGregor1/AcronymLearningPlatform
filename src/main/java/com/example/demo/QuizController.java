@@ -34,5 +34,10 @@ public class QuizController {
         return questions;
     }
 
+    @GetMapping (path = "/quizPage")
+    public String quizPage() {
+        return "quizPage";
+    }
+
 
 }
