@@ -2,6 +2,7 @@ const optionButtons = document.querySelectorAll(".option-button");
 const categoriesButton = document.querySelectorAll(".categories-button");
 const allButton = document.getElementById("all-button");
 const lengthButton = document.querySelectorAll(".length-button");
+const startButton = document.getElementById("start-button");
 
 let allSelected = false;
 
@@ -43,3 +44,31 @@ lengthButton.forEach((button) => {
     button.classList.add("clicked");
   });
 });
+
+startButton.addEventListener("click", () => {
+  logSelection();
+});
+
+function logSelection() {
+  const numberOfQuestions = document.querySelector(".option-button.clicked");
+  const selectedCategories = Array.from(
+    document.querySelectorAll(".categories-button.clicked")
+  ).map((button) => button.textContent);
+  const selectedLength = allSelected
+    ? null
+    : Array.from(document.querySelectorAll(".length-button.clicked"))
+        .map((button) => button.textContent)
+        .pop();
+
+  console.log(
+    "Questions: --> " +
+      (numberOfQuestions ? numberOfQuestions.textContent : null)
+  );
+  console.log(
+    "Selected category: " +
+      (selectedCategories.length > 0 ? selectedCategories : null)
+  );
+  console.log("Selected length: " + (selectedLength ? selectedLength : null));
+  console.log("Selected all: " + allSelected);
+  console.log("------------------------------");
+}
