@@ -6,11 +6,11 @@
 }
 
 .correct {
-    background-color: green !important;
+    background-color: #6BDC44 !important;
 }
 
 .wrong {
-    background-color: red !important;
+    background-color: #D02B2B !important;
 }
 
 body {
