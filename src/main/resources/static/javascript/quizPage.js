@@ -12,6 +12,7 @@ function getShuffledQuestions() {
       if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
         shuffledQuestions = response;
+        console.log("response -> ", response);
         displayQuestion();
       } else {
         console.error("Error getting shuffled questions:", xhr.status);
@@ -50,7 +51,17 @@ function displayQuestion() {
 }
 
 function selectAnswer(selectedIndex) {
-  console.log("Selected index:", selectedIndex);
+  const currentQuestion = shuffledQuestions[currentQuestionIndex];
+  const correctAnswerIndex = currentQuestion.options.indexOf(
+    currentQuestion.answer
+  );
+
+  if (selectedIndex === correctAnswerIndex) {
+    alert("Correct!");
+  } else {
+    alert("Wrong!");
+  }
+
   currentQuestionIndex++;
   displayQuestion();
 }

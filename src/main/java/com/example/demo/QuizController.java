@@ -36,6 +36,7 @@ public class QuizController {
                 Map<String, Object> questionMap = new HashMap<>();
                 questionMap.put("question", "What does " + a.getAcronym() + " stand for?");
                 questionMap.put("options", options);
+                questionMap.put("answer", a.getMeaning());
 
                 questions.add(questionMap);
             }
