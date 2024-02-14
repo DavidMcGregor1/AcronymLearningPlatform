@@ -23,6 +23,7 @@ public class QuizController {
     @GetMapping(path = "/getAllQuestions", produces = "application/json")
     public List<Map<String, Object>> getAllQuestions(Model model) {
         List<Acronyms> allAcronyms = repositoryAcronyms.findAll();
+        Collections.shuffle(allAcronyms); // Shuffle the list of questions
         List<Map<String, Object>> questions = new ArrayList<>();
         for (Acronyms a : allAcronyms) {
             if (a != null) {
