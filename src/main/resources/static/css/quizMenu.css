@@ -57,7 +57,7 @@ button:hover {
     gap: 30px;
 }
 
-.option-button, .length-button {
+.option-button, .length-button, .categories-button {
     font-size: 1rem;
     width: 180px;
     height: 40px;
