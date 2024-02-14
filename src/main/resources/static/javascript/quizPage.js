@@ -1,9 +1,11 @@
-const button = document.getElementById("button");
-button.addEventListener("click", () => {
-  test();
+let shuffledQuestions = [];
+let currentQuestionIndex = 0;
+
+document.addEventListener("DOMContentLoaded", () => {
+  getShuffledQuestions();
 });
 
-function test() {
+function getShuffledQuestions() {
   console.log("Called test");
 
   const xhr = new XMLHttpRequest();
@@ -12,7 +14,6 @@ function test() {
       if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
         const shuffledQuestions = shuffleArray(response);
-        console.log("Array of non-shuffled questions: ", response);
         console.log("Array of questions (shuffled):", shuffledQuestions);
       } else {
         console.error("Error updating acronym description:", xhr.status);
