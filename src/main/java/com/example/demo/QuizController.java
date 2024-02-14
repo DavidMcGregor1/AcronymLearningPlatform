@@ -2,11 +2,8 @@ package com.example.demo;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.*;
 
@@ -43,6 +40,36 @@ public class QuizController {
         }
         return questions;
     }
+
+    @ResponseStatus(value = HttpStatus.OK)
+    @ResponseBody
+    @GetMapping(path = "/getSpecifiedNumberOfQuestions", produces = "application/json")
+    public List<Map<String, Object>> getSpecifiedNumberOfQuestions(@RequestParam(name = "numberOfQuestions") int numberOfQuestions) {
+        System.out.println("Hit getSpecific endpoint");
+        System.out.println("Number of questions: " + numberOfQuestions);
+        List<Acronyms> allAcronyms = repositoryAcronyms.findAll();
+        Collections.shuffle(allAcronyms); // Shuffle the list of questions
+        List<Map<String, Object>> questions = new ArrayList<>();
+        int count = 0;
+        for (Acronyms a : allAcronyms) {
+            if (a != null && count < numberOfQuestions) {
+                List<String> options = new ArrayList<>();
+                options.add(a.getMeaning()); // Add the real answer
+                options.add(a.getFalseAnswer1());
+                options.add(a.getFalseAnswer2());
+                options.add(a.getFalseAnswer3());
+                Collections.shuffle(options); // Shuffle the options
+                Map<String, Object> questionMap = new HashMap<>();
+                questionMap.put("question", "What does " + a.getAcronym() + " stand for?");
+                questionMap.put("options", options);
+                questionMap.put("answer", a.getMeaning());
+                questions.add(questionMap);
+                count++;
+            }
+        }
+        return questions;
+    }
+
 
 
     @GetMapping (path = "/quizPage")
