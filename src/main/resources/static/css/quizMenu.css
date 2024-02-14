@@ -11,6 +11,10 @@ button:hover {
     cursor: pointer;
 }
 
+.clicked {
+    background-color: #01DEB2;
+}
+
 /* ---------- TITLES ---------- */
 
 #take-quiz-title {
