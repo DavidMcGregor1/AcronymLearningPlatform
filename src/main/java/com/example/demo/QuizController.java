@@ -44,10 +44,21 @@ public class QuizController {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     @GetMapping(path = "/getSpecifiedNumberOfQuestions", produces = "application/json")
-    public List<Map<String, Object>> getSpecifiedNumberOfQuestions(@RequestParam(name = "numberOfQuestions") int numberOfQuestions) {
+    public List<Map<String, Object>> getSpecifiedNumberOfQuestions(
+            @RequestParam(name = "numberOfQuestions") int numberOfQuestions,
+            @RequestParam(name = "category", defaultValue = "all") String category) {
+
         System.out.println("Hit getSpecific endpoint");
         System.out.println("Number of questions: " + numberOfQuestions);
-        List<Acronyms> allAcronyms = repositoryAcronyms.findAll();
+
+        List<Acronyms> allAcronyms;
+
+        if ("all".equals(category)) {
+            allAcronyms = repositoryAcronyms.findAll();
+        } else {
+            allAcronyms = repositoryAcronyms.findByCategory(category);
+        }
+
         Collections.shuffle(allAcronyms); // Shuffle the list of questions
         List<Map<String, Object>> questions = new ArrayList<>();
         int count = 0;

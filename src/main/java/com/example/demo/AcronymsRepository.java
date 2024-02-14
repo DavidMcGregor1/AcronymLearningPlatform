@@ -7,7 +7,7 @@ import java.util.*;
 
 @Repository
 public interface AcronymsRepository extends JpaRepository<Acronyms, Integer> {
-    Optional<Acronyms> findByCategory(String category);
+    List<Acronyms> findByCategory(String category);
     List<Acronyms> findByCategoryIgnoreCase(String category);
     List<Acronyms> findByLength(int length);
     List<Acronyms> findByCategoryIgnoreCaseAndLength(String category, int length);
