@@ -88,5 +88,9 @@ public class QuizController {
         return "quizPage";
     }
 
+    @GetMapping (path = "/quizMenuPage")
+    public String quizMenuPage() {
+        return "quizMenuPage";
+    }
 
 }

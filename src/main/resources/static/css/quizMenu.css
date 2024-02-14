@@ -1,0 +1,70 @@
+body {
+    background-color: #1C1A5E;
+    height: 100vh;
+    font-family: "Inter", sans-serif;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover {
+    background-color: #01DEB2;
+    cursor: pointer;
+}
+
+/* ---------- TITLES ---------- */
+
+#take-quiz-title {
+    text-align: center;
+    color: white;
+}
+
+#select-questions-title {
+    color: white;
+    text-align: center;
+    margin-top: 5%;
+}
+
+#filter-title {
+    margin-top: 3%;
+    text-align: center;
+    color: white;
+}
+
+.start-button-container, .question-option-container, .categories-options-container  {
+    text-align: center;
+}
+
+.first-options {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.second-options {
+    margin-top: 1%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.option-button, .length-button {
+    width: 180px;
+    height: 40px;
+    border-radius: 40px;
+    border: none;
+    margin-bottom: 1%;
+}
+
+#start-button {
+    font-size: large;
+    margin-top: 3%;
+    width: 200px;
+    height: 60px;
+    border-radius: 40px;
+    border: none;
+    background-color: #01DEB2;
+    color: black;
+
+}
+
+
