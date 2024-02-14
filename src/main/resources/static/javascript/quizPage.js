@@ -27,7 +27,9 @@ function getShuffledQuestions() {
 function displayQuestion() {
   const questionElement = document.getElementById("question");
   const optionsContainer = document.querySelector(".options");
-  optionsContainer.innerHTML = ""; // Clear previous options
+  const questionNumber = document.getElementById("question-number");
+  questionNumber.innerText = "Question " + (currentQuestionIndex + 1);
+  optionsContainer.innerHTML = "";
 
   if (shuffledQuestions.length > 0) {
     const currentQuestion = shuffledQuestions[currentQuestionIndex];
