@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   getShuffledQuestions();
 });
 
+displayQuestion();
+
 function getShuffledQuestions() {
   console.log("Called test");
 
@@ -13,8 +15,8 @@ function getShuffledQuestions() {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
-        const shuffledQuestions = shuffleArray(response);
-        console.log("Array of questions (shuffled):", shuffledQuestions);
+        shuffledQuestions = shuffleArray(response);
+        displayFirstQuestion();
       } else {
         console.error("Error updating acronym description:", xhr.status);
       }
@@ -33,3 +35,30 @@ function shuffleArray(array) {
   }
   return array;
 }
+
+console.log(
+  "current question index outside anything:   -> " + currentQuestionIndex
+);
+
+function displayQuestion() {
+  const questionElement = document.getElementById("question");
+  questionElement.textContent = shuffledQuestions[currentQuestionIndex];
+}
+
+function displayFirstQuestion() {
+  const questionElement = document.getElementById("question");
+  if (shuffledQuestions.length > 0) {
+    questionElement.textContent = shuffledQuestions[0];
+  } else {
+    console.error("Shuffled questions array is empty or undefined.");
+  }
+}
+
+function selectAnswer() {
+  currentQuestionIndex++;
+  displayQuestion();
+}
+
+document.querySelector(".options").addEventListener("click", () => {
+  selectAnswer();
+});
