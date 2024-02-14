@@ -66,5 +66,5 @@ function selectAnswer(selectedIndex) {
   setTimeout(() => {
     currentQuestionIndex++;
     displayQuestion();
-  }, 1000);
+  }, 700);
 }
