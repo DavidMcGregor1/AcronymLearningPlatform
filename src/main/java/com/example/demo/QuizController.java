@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class QuizController {
@@ -46,10 +47,13 @@ public class QuizController {
     @GetMapping(path = "/getSpecifiedNumberOfQuestions", produces = "application/json")
     public List<Map<String, Object>> getSpecifiedNumberOfQuestions(
             @RequestParam(name = "numberOfQuestions") int numberOfQuestions,
-            @RequestParam(name = "category", defaultValue = "all") String category) {
+            @RequestParam(name = "category", defaultValue = "all") String category,
+            @RequestParam(name = "length", defaultValue = "all") String length) {
 
         System.out.println("Hit getSpecific endpoint");
         System.out.println("Number of questions: " + numberOfQuestions);
+        System.out.println("Category: " + category);
+        System.out.println("Length: " + length);
 
         List<Acronyms> allAcronyms;
 
@@ -57,6 +61,13 @@ public class QuizController {
             allAcronyms = repositoryAcronyms.findAll();
         } else {
             allAcronyms = repositoryAcronyms.findByCategory(category);
+        }
+
+        // Filter by length
+        if (!"all".equals(length)) {
+            allAcronyms = allAcronyms.stream()
+                    .filter(acronym -> acronym.getAcronym().length() == Integer.parseInt(length))
+                    .collect(Collectors.toList());
         }
 
         Collections.shuffle(allAcronyms); // Shuffle the list of questions
@@ -80,6 +91,7 @@ public class QuizController {
         }
         return questions;
     }
+
 
 
 
