@@ -5,6 +5,14 @@
     font-family: 'inter', 'sans-serif';
 }
 
+.correct {
+    background-color: green !important;
+}
+
+.wrong {
+    background-color: red !important;
+}
+
 body {
     background-color: #1C1A5E;
     padding-top: 8%;

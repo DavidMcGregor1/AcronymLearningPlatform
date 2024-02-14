@@ -55,13 +55,19 @@ function selectAnswer(selectedIndex) {
   const correctAnswerIndex = currentQuestion.options.indexOf(
     currentQuestion.answer
   );
+  const optionsContainer = document.querySelector(".options");
+  const selectedButton = optionsContainer.children[selectedIndex];
 
   if (selectedIndex === correctAnswerIndex) {
-    alert("Correct!");
+    selectedButton.classList.add("correct");
+    console.log("Correct!");
   } else {
-    alert("Wrong!");
+    selectedButton.classList.add("wrong");
+    console.log("Wrong!");
   }
 
-  currentQuestionIndex++;
-  displayQuestion();
+  setTimeout(() => {
+    currentQuestionIndex++;
+    displayQuestion();
+  }, 1000);
 }
