@@ -43,6 +43,9 @@ console.log(
 function displayQuestion() {
   const questionElement = document.getElementById("question");
   questionElement.textContent = shuffledQuestions[currentQuestionIndex];
+
+  const questionNumber = document.getElementById("question-number");
+  questionNumber.textContent = "Question " + (currentQuestionIndex + 1);
 }
 
 function displayFirstQuestion() {
