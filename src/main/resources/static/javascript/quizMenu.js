@@ -1,6 +1,7 @@
 const optionButtons = document.querySelectorAll(".option-button");
 const categoriesButton = document.querySelectorAll(".categories-button");
 const allButton = document.getElementById("all-button");
+const lengthButton = document.querySelectorAll(".length-button");
 
 let allSelected = false;
 
@@ -34,4 +35,11 @@ allButton.addEventListener("click", () => {
   categoriesButton.forEach((button) => button.classList.remove("clicked"));
   allButton.classList.add("clicked");
   allSelected = allButton.classList.contains("clicked");
+});
+
+lengthButton.forEach((button) => {
+  button.addEventListener("click", () => {
+    lengthButton.forEach((b) => b.classList.remove("clicked"));
+    button.classList.add("clicked");
+  });
 });
