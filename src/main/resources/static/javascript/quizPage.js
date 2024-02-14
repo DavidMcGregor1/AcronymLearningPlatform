@@ -5,20 +5,16 @@ document.addEventListener("DOMContentLoaded", () => {
   getShuffledQuestions();
 });
 
-displayQuestion();
-
 function getShuffledQuestions() {
-  console.log("Called test");
-
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
-        shuffledQuestions = shuffleArray(response);
-        displayFirstQuestion();
+        shuffledQuestions = response;
+        displayQuestion();
       } else {
-        console.error("Error updating acronym description:", xhr.status);
+        console.error("Error getting shuffled questions:", xhr.status);
       }
     }
   };
@@ -28,40 +24,31 @@ function getShuffledQuestions() {
   xhr.send();
 }
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
-}
-
-console.log(
-  "current question index outside anything:   -> " + currentQuestionIndex
-);
-
 function displayQuestion() {
   const questionElement = document.getElementById("question");
-  questionElement.textContent = shuffledQuestions[currentQuestionIndex];
+  const optionsContainer = document.querySelector(".options");
+  optionsContainer.innerHTML = ""; // Clear previous options
 
-  const questionNumber = document.getElementById("question-number");
-  questionNumber.textContent = "Question " + (currentQuestionIndex + 1);
-}
-
-function displayFirstQuestion() {
-  const questionElement = document.getElementById("question");
   if (shuffledQuestions.length > 0) {
-    questionElement.textContent = shuffledQuestions[0];
+    const currentQuestion = shuffledQuestions[currentQuestionIndex];
+    questionElement.textContent = currentQuestion.question;
+
+    currentQuestion.options.forEach((option, index) => {
+      const button = document.createElement("button");
+      button.classList.add("option");
+      button.textContent = option;
+      button.addEventListener("click", () => {
+        selectAnswer(index);
+      });
+      optionsContainer.appendChild(button);
+    });
   } else {
     console.error("Shuffled questions array is empty or undefined.");
   }
 }
 
-function selectAnswer() {
+function selectAnswer(selectedIndex) {
+  console.log("Selected index:", selectedIndex);
   currentQuestionIndex++;
   displayQuestion();
 }
-
-document.querySelector(".options").addEventListener("click", () => {
-  selectAnswer();
-});
