@@ -12,7 +12,6 @@ function getShuffledQuestions() {
       if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText);
         shuffledQuestions = response;
-        console.log("response -> ", response);
         displayQuestion();
       } else {
         console.error("Error getting shuffled questions:", xhr.status);
@@ -60,10 +59,8 @@ function selectAnswer(selectedIndex) {
 
   if (selectedIndex === correctAnswerIndex) {
     selectedButton.classList.add("correct");
-    console.log("Correct!");
   } else {
     selectedButton.classList.add("wrong");
-    console.log("Wrong!");
   }
 
   setTimeout(() => {
