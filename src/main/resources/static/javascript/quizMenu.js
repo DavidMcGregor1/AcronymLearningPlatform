@@ -29,20 +29,37 @@ categoriesButton.forEach((button) => {
       });
     }
     button.classList.toggle("clicked", !isButtonClicked);
+    allSelected = false;
+    selectedCategories = isButtonClicked ? null : button.textContent;
+  });
+});
+
+lengthButton.forEach((button) => {
+  button.addEventListener("click", () => {
+    const isButtonClicked = button.classList.contains("clicked");
+    const group = button.getAttribute("data-group");
+    allButton.classList.remove("clicked");
+    if (button === allButton) {
+      lengthButton.forEach((b) => b.classList.remove("clicked"));
+    } else {
+      lengthButton.forEach((b) => {
+        if (b.getAttribute("data-group") === group) {
+          b.classList.remove("clicked");
+        }
+      });
+    }
+    button.classList.toggle("clicked", !isButtonClicked);
+    allSelected = false;
+    selectedLength = isButtonClicked ? null : button.textContent;
   });
 });
 
 allButton.addEventListener("click", () => {
   categoriesButton.forEach((button) => button.classList.remove("clicked"));
+  lengthButton.forEach((button) => button.classList.remove("clicked"));
   allButton.classList.add("clicked");
-  allSelected = allButton.classList.contains("clicked");
-});
-
-lengthButton.forEach((button) => {
-  button.addEventListener("click", () => {
-    lengthButton.forEach((b) => b.classList.remove("clicked"));
-    button.classList.add("clicked");
-  });
+  allSelected = true;
+  selectedLength = null;
 });
 
 startButton.addEventListener("click", () => {
