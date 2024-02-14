@@ -69,3 +69,35 @@ button:hover {
 }
 
 
+/* ---------- MEDIA QUERIES ---------- */
+
+@media screen and (max-width: 900px) {
+    
+    #select-questions-title {
+        margin-top: 12%;
+        text-align: center;
+        color: white;
+    }
+    
+    
+    #filter-title {
+        margin-top: 12%;
+        text-align: center;
+        color: white;
+    }
+}
+
+@media screen and (max-width: 605px) {
+    
+    #select-questions-title {
+        margin-top: 23%;
+        text-align: center;
+        color: white;
+    }
+    
+    #filter-title {
+        margin-top: 23%;
+        text-align: center;
+        color: white;
+    }
+}
