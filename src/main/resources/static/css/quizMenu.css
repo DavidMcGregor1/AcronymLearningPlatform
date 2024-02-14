@@ -40,6 +40,12 @@ button:hover {
     gap: 30px;
 }
 
+.first-categories-options {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
 .second-options, .length-options {
     margin-top: 1%;
     display: flex;
@@ -65,8 +71,12 @@ button:hover {
     border: none;
     background-color: #01DEB2;
     color: black;
-
 }
+
+#start-button:hover {
+    background-color: #0aa082;
+}
+
 
 
 /* ---------- MEDIA QUERIES ---------- */
