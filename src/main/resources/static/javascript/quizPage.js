@@ -2,10 +2,15 @@ let shuffledQuestions = [];
 let currentQuestionIndex = 0;
 
 document.addEventListener("DOMContentLoaded", () => {
-  getShuffledQuestions();
+  getQuestionsBasedOnSelections();
 });
 
-function getShuffledQuestions() {
+function getQuestionsBasedOnSelections() {
+  const params = new URLSearchParams(window.location.search);
+  const numberOfQuestions = params.get("numberOfQuestions");
+  const category = params.get("category");
+  const length = params.get("length");
+
   const xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
@@ -14,12 +19,16 @@ function getShuffledQuestions() {
         shuffledQuestions = response;
         displayQuestion();
       } else {
-        console.error("Error getting shuffled questions:", xhr.status);
+        console.error("Error getting questions:", xhr.status);
       }
     }
   };
 
-  xhr.open("GET", "/getAllQuestions", true);
+  xhr.open(
+    "POST",
+    `/getSpecifiedNumberOfQuestions?numberOfQuestions=${numberOfQuestions}&category=${category}&length=${length}`,
+    true
+  );
   xhr.setRequestHeader("Accept", "application/json");
   xhr.send();
 }

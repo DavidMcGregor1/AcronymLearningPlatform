@@ -118,6 +118,11 @@ function sendSelections(numberOfQuestions, selectedCategories, selectedLength) {
       if (xhr.status === 200) {
         var response = JSON.parse(xhr.responseText);
         console.log("Response -> ", response);
+        // Construct URL with query parameters
+        const url = `/quizPage?numberOfQuestions=${numberOfQuestions}&category=${encodeURIComponent(
+          selectedCategories
+        )}&length=${selectedLength}`;
+        window.location.href = url; // Redirect to the quiz page with parameters
       } else {
         console.error("Error:", xhr.status);
       }
@@ -132,14 +137,6 @@ function sendSelections(numberOfQuestions, selectedCategories, selectedLength) {
   );
   xhr.setRequestHeader("Content-Type", "application/json");
 
-  // var requestBody = JSON.stringify({
-  //   numberOfQuestions: parseInt(numberOfQuestions), // Remove .textContent here
-  //   category: selectedCategories[0], // Assuming only one category is selected
-  //   length: selectedLength, // Length is already a string or null
-  // });
-
-  // console.log("request body -> " + requestBody);
-  // xhr.send(requestBody);
   xhr.send();
 }
 
