@@ -37,7 +37,9 @@ function displayQuestion() {
   const questionElement = document.getElementById("question");
   const optionsContainer = document.querySelector(".options");
   const questionNumber = document.getElementById("question-number");
-  questionNumber.innerText = "Question " + (currentQuestionIndex + 1);
+  questionNumber.innerText = `Question ${currentQuestionIndex + 1} of ${
+    shuffledQuestions.length
+  }`;
   optionsContainer.innerHTML = "";
 
   if (shuffledQuestions.length > 0) {
