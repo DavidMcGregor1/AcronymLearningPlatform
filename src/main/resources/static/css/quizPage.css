@@ -69,13 +69,42 @@ body {
 }
 
 #quiz-over-message {
-    font-size: 80px;
+    font-size: 60px;
     margin-bottom: 5%;
 }
 
 .quiz-over {
-    font-size: 40px;
+    font-size: 30px;
 }
+
+#ty-message {
+    margin-bottom: 2%;
+}
+
+/* ---------- NEXT BUTTONS ---------- */
+.next-button-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.next-button {
+    font-size: large;
+    margin-top: 3%;
+    width: 200px;
+    height: 60px;
+    border-radius: 40px;
+    border: none;
+    background-color: #01DEB2;
+    color: black;
+}
+
+.next-button:hover {
+    background-color: #0aa082;
+    cursor: pointer;
+}
+
 
 
 @media screen and (max-width: 1250px){

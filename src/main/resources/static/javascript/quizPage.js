@@ -102,15 +102,12 @@ function selectAnswer(selectedIndex) {
   }, 700);
 }
 
-// function calculateScore() {
-//   let score = 0;
-//   shuffledQuestions.forEach((question) => {
-//     const correctAnswerIndex = question.options.indexOf(question.answer);
-//     const selectedButton =
-//       document.querySelector(".options").children[correctAnswerIndex];
-//     if (selectedButton && selectedButton.classList.contains("correct")) {
-//       score++;
-//     }
-//   });
-//   return score;
-// }
+const playAgainButton = document.getElementById("playAgainButton");
+const changeSettingsButton = document.getElementById("changeSettingsButton");
+playAgainButton.addEventListener("click", () => {
+  window.location.reload();
+});
+
+changeSettingsButton.addEventListener("click", () => {
+  window.location.href = "/quizMenuPage";
+});
