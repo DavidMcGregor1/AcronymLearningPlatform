@@ -65,27 +65,79 @@ allButton.addEventListener("click", () => {
 startButton.addEventListener("click", () => {
   logSelection();
 });
-
 function logSelection() {
-  const numberOfQuestions = document.querySelector(".option-button.clicked");
-  const selectedCategories = Array.from(
+  const numberOfQuestions = document.querySelector(
+    ".option-button.clicked"
+  ).textContent;
+  let selectedCategories = Array.from(
     document.querySelectorAll(".categories-button.clicked")
   ).map((button) => button.textContent);
-  const selectedLength = allSelected
+  let selectedLength = allSelected
     ? null
     : Array.from(document.querySelectorAll(".length-button.clicked"))
         .map((button) => button.textContent)
         .pop();
 
+  if (selectedLength) {
+    selectedLength = parseInt(selectedLength.match(/\d+/)[0]);
+  }
+
+  if (selectedCategories.length <= 0) {
+    selectedCategories = "all";
+  }
+
+  if (selectedLength == null) {
+    selectedLength = 0;
+  }
+
+  console.log("selectedCategories -> " + selectedCategories);
+  console.log("length:" + selectedLength);
   console.log(
-    "Questions: --> " +
-      (numberOfQuestions ? numberOfQuestions.textContent : null)
+    "Questions: --> " + (numberOfQuestions ? numberOfQuestions : null)
   );
-  console.log(
-    "Selected category: " +
-      (selectedCategories.length > 0 ? selectedCategories : null)
-  );
+  // console.log(
+  //   "Selected category: " +
+  //     (selectedCategories.length > 0 ? selectedCategories : "all")
+  // );
   console.log("Selected length: " + (selectedLength ? selectedLength : null));
   console.log("Selected all: " + allSelected);
   console.log("------------------------------");
+  sendSelections(numberOfQuestions, selectedCategories, selectedLength);
+}
+
+function sendSelections(numberOfQuestions, selectedCategories, selectedLength) {
+  console.log("called send selections");
+  console.log("num of questions passed in:" + numberOfQuestions);
+  console.log("categories passed in:" + selectedCategories);
+  console.log("length passed in:" + selectedLength);
+  var xhr = new XMLHttpRequest();
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      if (xhr.status === 200) {
+        var response = JSON.parse(xhr.responseText);
+        console.log("Response -> ", response);
+      } else {
+        console.error("Error:", xhr.status);
+      }
+    }
+  };
+
+  // xhr.open("POST", "/getSpecifiedNumberOfQuestions", true);
+  xhr.open(
+    "POST",
+    `/getSpecifiedNumberOfQuestions?numberOfQuestions=${numberOfQuestions}&category=${selectedCategories}&length=${selectedLength}`,
+    true
+  );
+  xhr.setRequestHeader("Content-Type", "application/json");
+
+  // var requestBody = JSON.stringify({
+  //   numberOfQuestions: parseInt(numberOfQuestions), // Remove .textContent here
+  //   category: selectedCategories[0], // Assuming only one category is selected
+  //   length: selectedLength, // Length is already a string or null
+  // });
+
+  // console.log("request body -> " + requestBody);
+  // xhr.send(requestBody);
+  xhr.send();
 }
