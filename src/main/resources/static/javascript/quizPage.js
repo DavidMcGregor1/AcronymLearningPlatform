@@ -66,7 +66,11 @@ function displayQuestion() {
     });
   } else {
     // Quiz over
-    quizOverMessages.forEach((message) => message.classList.remove("hidden"));
+    const quizResultsContainer = document.getElementById("quiz-results");
+    quizResultsContainer.classList.remove("hidden");
+    const quizContainer = document.getElementById("quiz-container");
+    quizContainer.classList.add("hidden");
+    // quizOverMessages.forEach((message) => message.classList.remove("hidden"));
     document.getElementById("score").innerText =
       "Score: " + globalScore + "/" + shuffledQuestions.length;
   }

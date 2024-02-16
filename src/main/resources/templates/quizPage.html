@@ -9,14 +9,17 @@
 <body>
 
     <main>
-        <h3 id="question-number"></h3>
-        <h1 id="question"></h1>
-        <h1 class="quiz-over hidden">Quiz Over!</h1>
-        <h3 class="quiz-over hidden">Thank you for playing</h3>
-        <h3 class="quiz-over hidden" id="score">Your score: </h3>
-
-        <div class="options">
+        <div id="quiz-container">
+            <h3 id="question-number"></h3>
+            <h1 id="question"></h1>
+            <div class="options"></div>
         </div>
+        <div id="quiz-results" class="hidden">
+            <h1 id="quiz-over-message">Quiz Over!</h1>
+            <h3 class="quiz-over" id="ty-message">Thank you for playing</h3>
+            <h3 class="quiz-over" id="score">Your score: </h3>
+        </div>
+        
 
     </main>
     

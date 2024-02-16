@@ -63,10 +63,20 @@ body {
     gap: 10px;
     background-color: #D9D9D9;
 }
-
-.quiz-over {
+#quiz-results {
+    text-align: center;
     color: white;
 }
+
+#quiz-over-message {
+    font-size: 80px;
+    margin-bottom: 5%;
+}
+
+.quiz-over {
+    font-size: 40px;
+}
+
 
 @media screen and (max-width: 1250px){
     .options button {
