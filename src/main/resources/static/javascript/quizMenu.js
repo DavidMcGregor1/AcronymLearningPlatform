@@ -3,6 +3,7 @@ const categoriesButton = document.querySelectorAll(".categories-button");
 const allButton = document.getElementById("all-button");
 const lengthButton = document.querySelectorAll(".length-button");
 const startButton = document.getElementById("start-button");
+const fiveQuestions = document.getElementById("5-questions");
 
 let allSelected = false;
 
@@ -141,3 +142,6 @@ function sendSelections(numberOfQuestions, selectedCategories, selectedLength) {
   // xhr.send(requestBody);
   xhr.send();
 }
+
+allButton.click();
+fiveQuestions.click();
