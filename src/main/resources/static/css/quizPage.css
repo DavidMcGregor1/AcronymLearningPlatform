@@ -49,9 +49,11 @@ body {
 }
 
 .options button:hover {
-    background-color: #01Deb2;
+    background-color: #076FDE;
     cursor: pointer;
 }
+
+/* change options to 5 10 25 50 */
 
 .option {
     display: flex;
@@ -63,6 +65,7 @@ body {
     gap: 10px;
     background-color: #D9D9D9;
 }
+
 #quiz-results {
     text-align: center;
     color: white;
