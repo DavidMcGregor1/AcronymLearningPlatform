@@ -118,18 +118,16 @@ function sendSelections(numberOfQuestions, selectedCategories, selectedLength) {
       if (xhr.status === 200) {
         var response = JSON.parse(xhr.responseText);
         console.log("Response -> ", response);
-        // Construct URL with query parameters
         const url = `/quizPage?numberOfQuestions=${numberOfQuestions}&category=${encodeURIComponent(
           selectedCategories
         )}&length=${selectedLength}`;
-        window.location.href = url; // Redirect to the quiz page with parameters
+        window.location.href = url;
       } else {
         console.error("Error:", xhr.status);
       }
     }
   };
 
-  // xhr.open("POST", "/getSpecifiedNumberOfQuestions", true);
   xhr.open(
     "POST",
     `/getSpecifiedNumberOfQuestions?numberOfQuestions=${numberOfQuestions}&category=${selectedCategories}&length=${selectedLength}`,

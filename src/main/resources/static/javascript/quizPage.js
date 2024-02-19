@@ -70,7 +70,6 @@ function displayQuestion() {
     quizResultsContainer.classList.remove("hidden");
     const quizContainer = document.getElementById("quiz-container");
     quizContainer.classList.add("hidden");
-    // quizOverMessages.forEach((message) => message.classList.remove("hidden"));
     document.getElementById("score").innerText =
       "Score: " + globalScore + "/" + shuffledQuestions.length;
   }

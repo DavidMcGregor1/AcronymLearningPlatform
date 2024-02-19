@@ -49,12 +49,6 @@ public class QuizController {
             @RequestParam(name = "numberOfQuestions") int numberOfQuestions,
             @RequestParam(name = "category", defaultValue = "all") String category,
             @RequestParam(name = "length", defaultValue = "all") String length) {
-        System.out.println("Hit getSpecific endpoint");
-
-
-        System.out.println("Number of questions: " + numberOfQuestions);
-        System.out.println("Category: " + category);
-        System.out.println("Length: " + length);
 
         List<Acronyms> allAcronyms;
 
@@ -66,14 +60,12 @@ public class QuizController {
 
         // Filter by length
         if (length != null && !"all".equals(length)) {
-            // If length is not 0, filter by length
             if (!"0".equals(length)) {
                 int filterLength = Integer.parseInt(length);
                 allAcronyms = allAcronyms.stream()
                         .filter(acronym -> acronym.getAcronym().length() == filterLength)
                         .collect(Collectors.toList());
             }
-            // If length is 0, skip filtering by length
         }
 
         Collections.shuffle(allAcronyms); // Shuffle the list of questions
