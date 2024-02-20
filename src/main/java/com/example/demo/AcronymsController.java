@@ -121,6 +121,25 @@ public class AcronymsController {
         return ResponseEntity.ok(submittedAcronym);
     }
 
+    @PostMapping(path = "/addAcronymWithFalseAnswers")
+    @ResponseBody
+    public ResponseEntity addAcronymWithFalseAnswers(HttpServletRequest request, @RequestBody AcronymsVm submittedAcronym) {
+        Acronyms newAcronym = new Acronyms();
+        String acronym = submittedAcronym.acronym.toUpperCase();
+        newAcronym.setAcronym(acronym);
+        newAcronym.setMeaning(submittedAcronym.meaning);
+        newAcronym.setCategory(submittedAcronym.category);
+        newAcronym.setLength(submittedAcronym.length);
+        newAcronym.setDescription(submittedAcronym.description);
+        newAcronym.setFalseAnswer1(submittedAcronym.falseAnswer1);
+        newAcronym.setFalseAnswer2(submittedAcronym.falseAnswer2);
+        newAcronym.setFalseAnswer3(submittedAcronym.falseAnswer3);
+
+        repositoryAcronyms.save(newAcronym);
+
+        return ResponseEntity.ok(submittedAcronym);
+    }
+
     @PutMapping(path = "editAcronymDescription")
     @ResponseBody
     public ResponseEntity editAcronymDescription(HttpServletRequest request, @RequestBody Acronyms editRequest) {
