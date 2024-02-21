@@ -53,8 +53,6 @@ body {
     cursor: pointer;
 }
 
-/* change options to 5 10 25 50 */
-
 .option {
     display: flex;
     margin-bottom: 1%;
