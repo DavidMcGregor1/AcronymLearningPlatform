@@ -4,6 +4,11 @@ addAcronymContainer.classList.add("hidden");
 const editDescriptionSection = document.getElementById("edit-description");
 editDescriptionSection.classList.add("hidden");
 
+const newDescriptionError = document.getElementById(
+  "new-description-error-div"
+);
+newDescriptionError.classList.add("hidden");
+
 const editedDescriptionSuccess = document.getElementById("edited-acronym-temp");
 const addedDescriptionSuccess = document.getElementById("added-acronym-temp");
 editedDescriptionSuccess.classList.add("hidden");
@@ -341,6 +346,10 @@ function handleEditDescription() {
     .getAttribute("data-acronym-id");
 
   const editedDescription = document.getElementById("newDescription").value;
+  if (editedDescription.length > 275) {
+    newDescriptionError.classList.remove("hidden");
+    return;
+  }
 
   const editRequest = {
     id: selectedAcronymId,
