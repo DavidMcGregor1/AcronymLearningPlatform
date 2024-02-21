@@ -75,8 +75,6 @@ function displayQuestion() {
   }
 }
 
-console.log("glob 1 " + globalScore);
-
 function selectAnswer(selectedIndex) {
   const currentQuestion = shuffledQuestions[currentQuestionIndex];
   const correctAnswerIndex = currentQuestion.options.indexOf(
@@ -84,21 +82,28 @@ function selectAnswer(selectedIndex) {
   );
   const optionsContainer = document.querySelector(".options");
   const selectedButton = optionsContainer.children[selectedIndex];
+  const correctButton = optionsContainer.children[correctAnswerIndex];
+  let status = "";
 
   if (selectedIndex === correctAnswerIndex) {
     selectedButton.classList.add("correct");
     globalScore += 1;
     console.log("gs " + globalScore);
   } else {
+    status = "incorrect";
     selectedButton.classList.add("wrong");
+    correctButton.classList.add("correct");
   }
 
-  console.log("gs " + globalScore);
+  let wait = 700;
+  if (status === "incorrect") {
+    wait = 1200;
+  }
 
   setTimeout(() => {
     currentQuestionIndex++;
     displayQuestion();
-  }, 700);
+  }, wait);
 }
 
 const playAgainButton = document.getElementById("playAgainButton");
