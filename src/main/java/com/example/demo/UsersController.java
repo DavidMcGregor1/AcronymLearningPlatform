@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.env.Environment;
 
+import java.net.URL;
 import java.util.*;
 import java.util.Optional;
 
@@ -34,6 +35,7 @@ public class UsersController {
     @GetMapping(path = "/getAllUsers")
     @ResponseBody
     public String getAllUsers() {
+        System.out.println("Secret key" + SECRET_KEY);
         List<Users> allUsers = repositoryUsers.findAll();
         String result = "All Users ---> ";
         for (int i = 0; i < allUsers.stream().count(); i++) {

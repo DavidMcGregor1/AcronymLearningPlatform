@@ -28,6 +28,12 @@ dependencies {
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 	testImplementation 'org.mockito:mockito-core:3.11.2'
 	implementation 'com.microsoft.sqlserver:mssql-jdbc:9.4.0.jre11'
+	implementation 'org.apache.poi:poi:5.2.4'
+	implementation 'org.apache.poi:poi-ooxml:5.2.4'
+	implementation 'org.json:json:20210307'
+	implementation 'com.google.code.gson:gson:2.8.7'
+	implementation 'com.opencsv:opencsv:5.5.1'
+	implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.13'
 
 }
 
