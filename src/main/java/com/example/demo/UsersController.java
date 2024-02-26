@@ -1,41 +1,35 @@
 package com.example.demo;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
+import io.jsonwebtoken.security.Keys;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.core.env.Environment;
 
 import java.net.URL;
 import java.util.*;
-import java.util.Optional;
+import java.util.Base64;
+import javax.crypto.SecretKey;
 
 @Controller
 public class UsersController {
 
-    public UsersController(UsersRepository u, Environment env) {
+    public UsersController(UsersRepository u) {
         repositoryUsers = u;
-        this.env = env;
     }
 
     private UsersRepository repositoryUsers;
-    private final Environment env;
-
-    @Value("${SECRET_KEY}")
-    private String SECRET_KEY;
-
+    private SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
     @GetMapping(path = "/getAllUsers")
     @ResponseBody
     public String getAllUsers() {
-        System.out.println("Secret key" + SECRET_KEY);
+        System.out.println("inside getAllUsers Method");
+        System.out.println("Secret key -> " + secretKey);
         List<Users> allUsers = repositoryUsers.findAll();
         String result = "All Users ---> ";
         for (int i = 0; i < allUsers.stream().count(); i++) {
@@ -50,14 +44,28 @@ public class UsersController {
     @PostMapping(path = "/login")
     @ResponseBody
     public String login(@RequestParam("submittedUsername") String submittedUsername, @RequestParam("submittedPassword") String submittedPassword) {
+        System.out.println("hit login");
+        System.out.println("username: -> ]" + submittedUsername + "[");
+        System.out.println("password: -> ]" + submittedPassword + "[");
+
         Optional<Users> userOptional = repositoryUsers.findByUsername(submittedUsername);
+        System.out.println("userOptional -> " + userOptional);
+        System.out.println("userOptional -> " + userOptional.toString());
+
         if (userOptional.isPresent()) {
+            System.out.println("userOptional -> " + userOptional);
+            System.out.println("user is present");
             Users user = userOptional.get();
+            System.out.println("user -> " + user);
             if (user.getPassword().equals(submittedPassword)) {
+                System.out.println("inputted password = user password");
                 String jwt = generateJWT(user.getUsername());
+                System.out.println("jwt -> " + jwt);
                 return jwt;
             }
+            System.out.println("inputted password does not equal user password");
         }
+        System.out.println("user is not present");
         return null;
     }
 
@@ -67,7 +75,7 @@ public class UsersController {
         if (jwt != null && jwt.startsWith("Bearer ")) {
             String token = jwt.substring(7);
             try {
-                Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
+                Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
                 return true;
             } catch (Exception e) {
                 return false;
@@ -76,18 +84,19 @@ public class UsersController {
         return false;
     }
 
-
-
     private String generateJWT(String username) {
+        System.out.println("Called generateJWT method");
+
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
         Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000);
-        return Jwts.builder()
+        String token = Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(expiration)
-                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+                .signWith(secretKey)
                 .compact();
-
+        System.out.println("Token -> " + token);
+        return token;
     }
-
 }
+
