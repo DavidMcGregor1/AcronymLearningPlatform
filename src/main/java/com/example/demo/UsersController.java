@@ -44,28 +44,16 @@ public class UsersController {
     @PostMapping(path = "/login")
     @ResponseBody
     public String login(@RequestParam("submittedUsername") String submittedUsername, @RequestParam("submittedPassword") String submittedPassword) {
-        System.out.println("hit login");
-        System.out.println("username: -> ]" + submittedUsername + "[");
-        System.out.println("password: -> ]" + submittedPassword + "[");
-
         Optional<Users> userOptional = repositoryUsers.findByUsername(submittedUsername);
-        System.out.println("userOptional -> " + userOptional);
-        System.out.println("userOptional -> " + userOptional.toString());
 
         if (userOptional.isPresent()) {
-            System.out.println("userOptional -> " + userOptional);
-            System.out.println("user is present");
+
             Users user = userOptional.get();
-            System.out.println("user -> " + user);
             if (user.getPassword().equals(submittedPassword)) {
-                System.out.println("inputted password = user password");
                 String jwt = generateJWT(user.getUsername());
-                System.out.println("jwt -> " + jwt);
                 return jwt;
             }
-            System.out.println("inputted password does not equal user password");
         }
-        System.out.println("user is not present");
         return null;
     }
 
