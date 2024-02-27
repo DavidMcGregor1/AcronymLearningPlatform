@@ -3,15 +3,12 @@ package com.example.demo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import jakarta.servlet.http.HttpServletRequest;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -89,7 +86,6 @@ public class AcronymsController {
             } else {
                 //length is -1 and category is specified - get by category
                 acronyms = repositoryAcronyms.findByCategoryIgnoreCase(category);
-
             }
         } else {
             if(category.equals("all")) {
@@ -101,9 +97,6 @@ public class AcronymsController {
             }
 
         }
-
-
-
         return acronyms;
     }
 
@@ -168,9 +161,7 @@ public class AcronymsController {
         acronym.setDescription(editRequest.getDescription());
         // Save the updated acronym
         repositoryAcronyms.save(acronym);
-
         return ResponseEntity.ok(acronym);
-
     }
 
     private boolean isAuthenticated(HttpServletRequest request) {
@@ -186,5 +177,4 @@ public class AcronymsController {
         }
         return false;
     }
-
 }

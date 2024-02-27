@@ -88,7 +88,6 @@ function selectAnswer(selectedIndex) {
   if (selectedIndex === correctAnswerIndex) {
     selectedButton.classList.add("correct");
     globalScore += 1;
-    console.log("gs " + globalScore);
   } else {
     status = "incorrect";
     selectedButton.classList.add("wrong");

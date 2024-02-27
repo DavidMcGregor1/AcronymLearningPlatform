@@ -259,19 +259,16 @@ cancelDescriptionButton.addEventListener("click", () => {
 const submitAcronymButton = document
   .getElementById("submit-new-acronym-button")
   .addEventListener("click", () => {
-    console.log("clicked submit acronym button");
     handleAddAcronym();
   });
 
 const submitNewAcronymDescriptionButton = document
   .getElementById("submit-new-description-button")
   .addEventListener("click", () => {
-    console.log("clicked submit new description button");
     handleEditDescription();
   });
 
 function handleAddAcronym() {
-  console.log("called handleAddAcronym ");
   const acronymLetters = document.getElementById("new-acronym-letters").value;
   const meaning = document.getElementById("new-acronym-meaning").value;
   const category = document.getElementById("new-acronym-category").value;
@@ -284,7 +281,6 @@ function handleAddAcronym() {
     category === "" ||
     description === ""
   ) {
-    console.log("something was blank");
     addAcronymErrorMessage.classList.remove("hidden");
     return;
   }
@@ -308,7 +304,6 @@ function handleAddAcronym() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        console.log("Acronym Successfully added");
         addAcronymContainer.classList.add("hidden");
         addedDescriptionSuccess.classList.remove("hidden");
         setTimeout(function () {
@@ -339,8 +334,6 @@ function handleAddAcronym() {
 }
 
 function handleEditDescription() {
-  console.log("Called handle edit description button");
-
   const selectedAcronymId = document
     .querySelector(".highlighted")
     .getAttribute("data-acronym-id");
@@ -360,7 +353,6 @@ function handleEditDescription() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        console.log("Acronym description successfully updated");
         updatedDescription(selectedAcronymId);
         editDescriptionSection.classList.add("hidden");
         editedDescriptionSuccess.classList.remove("hidden");

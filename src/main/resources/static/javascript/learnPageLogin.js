@@ -23,7 +23,6 @@ function isLoggedIn() {
 
 // Displays the login page when the user clicks the login button
 loginButtonHdr.addEventListener("click", () => {
-  console.log("Clicked the login button in the header");
   editAddOrLogin = "login";
   additLogin.classList.remove("hidden");
   descriptionSection.classList.add("hidden");
@@ -37,7 +36,6 @@ function logout() {
 
 // Logs the user out when the user clicks the logout button
 logoutButtonHdr.addEventListener("click", () => {
-  console.log("clicked logout button");
   logout();
 });
 
@@ -72,7 +70,6 @@ document
 
 // Handles login request
 function login() {
-  console.log("called login function");
   const username = document.querySelector(".login-inputu").value;
   const password = document.querySelector(".login-inputp").value;
 
@@ -132,13 +129,11 @@ function login() {
 // Login button on login form
 const loginButton = document.getElementById("login-button");
 loginButton.addEventListener("click", () => {
-  console.log("clicked login button");
   login();
 });
 
 // Replaces the login button with the logout button if this function is called (should only be called if the user is logged in)
 function replaceLoginButtonWithLogoutButton() {
-  console.log("called replaceLoginWithLogout method");
   const loginButtonHdr = document.getElementById("login-button-hdr");
   const logoutButtonHdr = document.getElementById("logout-button-hdr");
   loginButtonHdr.classList.add("hidden");
