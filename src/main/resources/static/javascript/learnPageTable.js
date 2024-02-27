@@ -30,9 +30,10 @@ function attachRowEventListeners() {
         row.classList.remove("highlighted");
       });
       row.classList.add("highlighted");
-      const clickedAcronym = row.querySelector(
-        ".acronym-cell:first-child"
-      ).textContent;
+      const clickedAcronymCell = row.querySelector(".acronym-cell:first-child");
+      const clickedAcronym = clickedAcronymCell
+        ? clickedAcronymCell.textContent
+        : "";
       const clickedAcronymId = row.getAttribute("data-acronym-id");
       updatedDescription(clickedAcronymId);
     });
@@ -131,14 +132,18 @@ originalAcronyms = Array.from(
 // Category dropdown logic - calls update method with the inputted category
 const categoryDropdown = document.getElementById("categoryDropdown");
 categoryDropdown.addEventListener("change", function () {
+  console.log("changed a category");
   const selectedCategory = categoryDropdown.value;
+  console.log("selected category -> " + selectedCategory);
   const selectedLength = lengthDropdown.value;
+  console.log("selected length -> " + selectedLength);
   updateTableWithCategoryAndLength(selectedCategory, selectedLength);
 });
 
 // Length dropdown logic - calls update method with the inputted length
 const lengthDropdown = document.getElementById("lengthDropdown");
 lengthDropdown.addEventListener("change", function () {
+  console.log("changed a length");
   const selectedLength = lengthDropdown.value;
   const selectedCategory = categoryDropdown.value;
   updateTableWithCategoryAndLength(selectedCategory, selectedLength);
@@ -147,6 +152,7 @@ lengthDropdown.addEventListener("change", function () {
 // Resets the table if the user clicks the all button
 const allButton = document.getElementById("all-button");
 allButton.addEventListener("click", () => {
+  console.log("clicked the all button");
   resetTable();
   highlightFirstAcronym();
 });
