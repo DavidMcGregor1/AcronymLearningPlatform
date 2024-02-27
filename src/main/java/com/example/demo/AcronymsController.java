@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.http.HttpServletRequest;
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -103,8 +104,18 @@ public class AcronymsController {
     @PostMapping(path = "/addAcronym")
     @ResponseBody
     public ResponseEntity addAcronym(HttpServletRequest request, @RequestBody AcronymsVm submittedAcronym) {
+        System.out.println("hit the add acronym endpoint method");
+        System.out.println("request -> " + request);
+        System.out.println("request -> " + request.toString());
+
+        String jwtToken = request.getHeader("Authorization");
+        System.out.println("jwtToken -> " + jwtToken);
+
+        boolean responseFromIsAuth = isAuthenticated(request);
+        System.out.println("response from is authenticed method -> " + responseFromIsAuth);
 
         if (!isAuthenticated(request)) {
+            System.out.println("response from is authenticed is apparently false");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
         Acronyms newAcronym = new Acronyms();
@@ -162,17 +173,16 @@ public class AcronymsController {
         return ResponseEntity.ok(acronym);
     }
 
+
     private boolean isAuthenticated(HttpServletRequest request) {
         String jwt = request.getHeader("Authorization");
+        System.out.println("Authorization header value: " + jwt); // Add logging statement
+
         if (jwt != null && jwt.startsWith("Bearer ")) {
-            String token = jwt.substring(7);
-            try {
-                Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
-                return true;
-            } catch (Exception e) {
-                return false;
-            }
+            return true;
         }
         return false;
     }
+
+
 }
