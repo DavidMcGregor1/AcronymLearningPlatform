@@ -132,18 +132,14 @@ originalAcronyms = Array.from(
 // Category dropdown logic - calls update method with the inputted category
 const categoryDropdown = document.getElementById("categoryDropdown");
 categoryDropdown.addEventListener("change", function () {
-  console.log("changed a category");
   const selectedCategory = categoryDropdown.value;
-  console.log("selected category -> " + selectedCategory);
   const selectedLength = lengthDropdown.value;
-  console.log("selected length -> " + selectedLength);
   updateTableWithCategoryAndLength(selectedCategory, selectedLength);
 });
 
 // Length dropdown logic - calls update method with the inputted length
 const lengthDropdown = document.getElementById("lengthDropdown");
 lengthDropdown.addEventListener("change", function () {
-  console.log("changed a length");
   const selectedLength = lengthDropdown.value;
   const selectedCategory = categoryDropdown.value;
   updateTableWithCategoryAndLength(selectedCategory, selectedLength);
