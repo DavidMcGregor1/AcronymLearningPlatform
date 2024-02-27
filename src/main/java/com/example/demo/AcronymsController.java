@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 public class AcronymsController {
@@ -53,7 +54,11 @@ public class AcronymsController {
     @GetMapping(path = "/learnPage")
     public String learnPage(Model model) {
         List<Acronyms> allAcronyms = repositoryAcronyms.findAll();
-        model.addAttribute("acronyms", allAcronyms);
+
+        // Sort acronyms by alphabetical order
+        List<Acronyms> sortedAcronyms = allAcronyms.stream().sorted(Comparator.comparing(Acronyms::getAcronym)).collect(Collectors.toList());
+
+        model.addAttribute("acronyms", sortedAcronyms);
         return "learnPage";
     }
 
