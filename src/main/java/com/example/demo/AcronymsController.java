@@ -103,8 +103,6 @@ public class AcronymsController {
     @PostMapping(path = "/addAcronym")
     @ResponseBody
     public ResponseEntity addAcronym(HttpServletRequest request, @RequestBody AcronymsVm submittedAcronym) {
-        System.out.println("request -> " + request.toString());
-        System.out.println("submitted acronym -> " + submittedAcronym.acronym);
 
         if (!isAuthenticated(request)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
