@@ -1,35 +1,39 @@
 package com.example.demo;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.core.env.Environment;
 
-import java.net.URL;
 import java.util.*;
-import java.util.Base64;
-import javax.crypto.SecretKey;
+import java.util.Optional;
 
 @Controller
 public class UsersController {
 
-    public UsersController(UsersRepository u) {
+    public UsersController(UsersRepository u, Environment env) {
         repositoryUsers = u;
+        this.env = env;
     }
 
     private UsersRepository repositoryUsers;
-    private SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final Environment env;
+
+    @Value("${SECRET_KEY}")
+    private String SECRET_KEY;
+
 
     @GetMapping(path = "/getAllUsers")
     @ResponseBody
     public String getAllUsers() {
-        System.out.println("inside getAllUsers Method");
-        System.out.println("Secret key -> " + secretKey);
         List<Users> allUsers = repositoryUsers.findAll();
         String result = "All Users ---> ";
         for (int i = 0; i < allUsers.stream().count(); i++) {
@@ -45,9 +49,7 @@ public class UsersController {
     @ResponseBody
     public String login(@RequestParam("submittedUsername") String submittedUsername, @RequestParam("submittedPassword") String submittedPassword) {
         Optional<Users> userOptional = repositoryUsers.findByUsername(submittedUsername);
-
         if (userOptional.isPresent()) {
-
             Users user = userOptional.get();
             if (user.getPassword().equals(submittedPassword)) {
                 String jwt = generateJWT(user.getUsername());
@@ -63,7 +65,7 @@ public class UsersController {
         if (jwt != null && jwt.startsWith("Bearer ")) {
             String token = jwt.substring(7);
             try {
-                Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+                Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
                 return true;
             } catch (Exception e) {
                 return false;
@@ -72,19 +74,18 @@ public class UsersController {
         return false;
     }
 
-    private String generateJWT(String username) {
-        System.out.println("Called generateJWT method");
 
+
+    private String generateJWT(String username) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
         Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000);
-        String token = Jwts.builder()
+        return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(expiration)
-                .signWith(secretKey)
+                .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
                 .compact();
-        System.out.println("Token -> " + token);
-        return token;
-    }
-}
 
+    }
+
+}
