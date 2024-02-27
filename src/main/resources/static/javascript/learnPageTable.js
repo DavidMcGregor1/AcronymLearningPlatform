@@ -148,7 +148,6 @@ lengthDropdown.addEventListener("change", function () {
 // Resets the table if the user clicks the all button
 const allButton = document.getElementById("all-button");
 allButton.addEventListener("click", () => {
-  console.log("clicked the all button");
   resetTable();
   highlightFirstAcronym();
 });
@@ -162,7 +161,6 @@ function updateTableContent(acronyms) {
 
   acronyms.forEach(function (acronym) {
     var row = document.createElement("tr");
-
     row.setAttribute("data-acronym-id", acronym.id);
 
     var acronymCell = document.createElement("td");
@@ -270,6 +268,7 @@ const submitNewAcronymDescriptionButton = document
     handleEditDescription();
   });
 
+// checks if the inputs are valid and posts to the /addAcronym endpoint if they are
 function handleAddAcronym() {
   const acronymLetters = document.getElementById("new-acronym-letters").value;
   const meaning = document.getElementById("new-acronym-meaning").value;
@@ -335,6 +334,7 @@ function handleAddAcronym() {
   xhr.send(requestBody);
 }
 
+// Updates the description of a selected acronym using the PUT method to the /editAcronymDescription endpoint
 function handleEditDescription() {
   const selectedAcronymId = document
     .querySelector(".highlighted")
