@@ -19,8 +19,6 @@ public class AcronymsController {
         repositoryAcronyms = a;
     }
 
-    private static final String SECRET_KEY = "IjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6Ikph";
-
     private AcronymsRepository repositoryAcronyms;
 
     @GetMapping
