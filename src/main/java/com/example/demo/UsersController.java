@@ -1,18 +1,12 @@
 package com.example.demo;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import jakarta.servlet.http.HttpServletRequest;
 
-import java.net.URL;
 import java.util.*;
-import java.util.Base64;
 import javax.crypto.SecretKey;
 
 @Controller
