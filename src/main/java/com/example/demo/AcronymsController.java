@@ -21,18 +21,6 @@ public class AcronymsController {
 
     private AcronymsRepository repositoryAcronyms;
 
-    @GetMapping
-    public List<Acronyms> getAllAcronymsTest() {
-        return repositoryAcronyms.findAll();
-    }
-
-    @RequestMapping
-    String getHelloWorld() {
-        return "helloworld!";
-    }
-
-
-
     @GetMapping(path = "/getAllAcronyms")
     @ResponseBody
     public String getAllAcronyms() {
