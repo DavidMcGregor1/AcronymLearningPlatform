@@ -1,16 +1,21 @@
+// Declare the add/edit form as a variable and hide it when the page loads
 const additLogin = document.getElementById("addit-login");
 additLogin.classList.add("hidden");
 
+// Declare the login successful message as a variable and hide it when the page loads
 const loggedInTempSection = document.getElementById("logged-in-temp");
 loggedInTempSection.classList.add("hidden");
 
+// Declare the login and logout button and hide the logout button when the page loads
 const loginButtonHdr = document.getElementById("login-button-hdr");
 const logoutButtonHdr = document.getElementById("logout-button-hdr");
 logoutButtonHdr.classList.add("hidden");
 
+// Declare the login error message and hide it when the page loads
 const loginErrorMessage = document.getElementById("login-error-div");
 loginErrorMessage.classList.add("hidden");
 
+// Declare the add acronym error message and hide it when the page loads
 const addAcronymErrorMessage = document.getElementById("add-acronym-error-div");
 addAcronymErrorMessage.classList.add("hidden");
 
@@ -150,11 +155,14 @@ function replaceLoginButtonWithLogoutButton() {
 const addNewAcronymBtn = document.getElementById("add-new-acronym-btn");
 addNewAcronymBtn.addEventListener("click", () => {
   editAddOrLogin = "add";
+
+  // Checks if the user is logged in and displays the add acronym form if they are
   if (isLoggedIn()) {
     addAcronymContainer.classList.remove("hidden");
     descriptionSection.classList.add("hidden");
     addNewAcronymBtn.classList.add("hidden");
   } else {
+    // If they are not logged in, show the login form
     additLogin.classList.remove("hidden");
     descriptionSection.classList.add("hidden");
   }
@@ -169,11 +177,14 @@ editDescriptionBtn.addEventListener("click", () => {
   newDescriptionTextArea.value = currentDescription;
 
   editAddOrLogin = "edit";
+
+  // Checks if the user is logged in and displays the edit description form if they are
   if (isLoggedIn()) {
     descriptionSection.classList.add("hidden");
     addNewAcronymBtn.classList.add("hidden");
     editDescriptionSection.classList.remove("hidden");
   } else {
+    // If they are not logged in, show the login form
     additLogin.classList.remove("hidden");
     descriptionSection.classList.add("hidden");
   }
