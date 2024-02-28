@@ -1,14 +1,17 @@
+// Declaring the add and edit containers as variables and hiding them when the page loads
 const addAcronymContainer = document.getElementById("add-acronym-container");
 addAcronymContainer.classList.add("hidden");
 
 const editDescriptionSection = document.getElementById("edit-description");
 editDescriptionSection.classList.add("hidden");
 
+// Delcaring the error message and hiding it when the page loads
 const newDescriptionError = document.getElementById(
   "new-description-error-div"
 );
 newDescriptionError.classList.add("hidden");
 
+// Declaring the successfully added / edited screens and hiding them when the page loads
 const editedDescriptionSuccess = document.getElementById("edited-acronym-temp");
 const addedDescriptionSuccess = document.getElementById("added-acronym-temp");
 editedDescriptionSuccess.classList.add("hidden");
@@ -19,6 +22,7 @@ const descriptionSection = document.getElementById("description");
 var originalAcronyms;
 var searchInput = document.getElementById("search-input-id");
 
+// Calling the attachRowEventListeners method to add event listeners to all the rows when the page loads
 attachRowEventListeners();
 
 // Loops throw all the rows in the table and adds an event listener for each one to update the description section and highlight the row.
@@ -212,6 +216,7 @@ function highlightFirstAcronym() {
     "#acronym-table tbody tr:first-child"
   );
 
+  // If the first row is presentm it highlights it whenever this method is called
   if (firstRow) {
     firstRow.classList.add("highlighted");
     const firstRowAcronymId = firstRow.getAttribute("data-acronym-id");
@@ -279,6 +284,7 @@ function handleAddAcronym() {
   const description = document.getElementById("new-acronym-description").value;
   const length = acronymLetters.length;
 
+  // Displays the error message if any of the fields are left empty.
   if (
     acronymLetters === "" ||
     meaning === "" ||
@@ -308,6 +314,7 @@ function handleAddAcronym() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
+        // If the acronym is successfully added, then display the success message for one second and refresh the page
         addAcronymContainer.classList.add("hidden");
         addedDescriptionSuccess.classList.remove("hidden");
         setTimeout(function () {
@@ -343,6 +350,7 @@ function handleEditDescription() {
     .querySelector(".highlighted")
     .getAttribute("data-acronym-id");
 
+  // If the new description is greater than 275 characters show the 'too long' error message to the user
   const editedDescription = document.getElementById("newDescription").value;
   if (editedDescription.length > 275) {
     newDescriptionError.classList.remove("hidden");
