@@ -21,6 +21,7 @@ public class AcronymsController {
 
     private AcronymsRepository repositoryAcronyms;
 
+    // Gets all the acronyms in the database and returns the result
     @GetMapping(path = "/getAllAcronyms")
     @ResponseBody
     public String getAllAcronyms() {
@@ -35,18 +36,19 @@ public class AcronymsController {
         return result;
     }
 
+    // Returns the learnPage html page
     @GetMapping(path = "/learnPage")
     public String learnPage(Model model) {
         List<Acronyms> allAcronyms = repositoryAcronyms.findAll();
 
-        // Sort acronyms by alphabetical order
+        // Sorts the acronyms by alphabetical order
         List<Acronyms> sortedAcronyms = allAcronyms.stream().sorted(Comparator.comparing(Acronyms::getAcronym)).collect(Collectors.toList());
 
         model.addAttribute("acronyms", sortedAcronyms);
         return "learnPage";
     }
 
-    //GET ACRONYM MEANING AND DESCRIPTION BY ID
+    // Gets the takes in the id of an acronym and returns the meaning and description properties of that acronym
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     @PostMapping(path = "/getAcronymMeaningAndDescriptionById")
@@ -60,6 +62,7 @@ public class AcronymsController {
         return result;
     }
 
+    // Returns a list of acronyms based on category and length parameters that are passed in
     @GetMapping(path = "/acronymsByCategoryAndLength")
     @ResponseBody
     public List<Acronyms> getAcronymsByCategoryAndLength(
@@ -87,23 +90,15 @@ public class AcronymsController {
         return acronyms;
     }
 
+    // Takes in the parameters for a new acronym and adds it to the database
     @PostMapping(path = "/addAcronym")
     @ResponseBody
     public ResponseEntity addAcronym(HttpServletRequest request, @RequestBody AcronymsVm submittedAcronym) {
-        System.out.println("hit the add acronym endpoint method");
-        System.out.println("request -> " + request);
-        System.out.println("request -> " + request.toString());
-
-        String jwtToken = request.getHeader("Authorization");
-        System.out.println("jwtToken -> " + jwtToken);
-
-        boolean responseFromIsAuth = isAuthenticated(request);
-        System.out.println("response from is authenticed method -> " + responseFromIsAuth);
 
         if (!isAuthenticated(request)) {
-            System.out.println("response from is authenticed is apparently false");
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
+        // Create a new acronym with the inputted properties
         Acronyms newAcronym = new Acronyms();
         String acronym = submittedAcronym.acronym.toUpperCase();
         newAcronym.setAcronym(acronym);
@@ -112,11 +107,13 @@ public class AcronymsController {
         newAcronym.setLength(submittedAcronym.length);
         newAcronym.setDescription(submittedAcronym.description);
 
+        // Save the new acronym to the database
         repositoryAcronyms.save(newAcronym);
 
         return ResponseEntity.ok(submittedAcronym);
     }
 
+    // Admin endpoint for me to add new acronyms to the database
     @PostMapping(path = "/addAcronymWithFalseAnswers")
     @ResponseBody
     public ResponseEntity addAcronymWithFalseAnswers(HttpServletRequest request, @RequestBody AcronymsVm submittedAcronym) {
@@ -136,9 +133,11 @@ public class AcronymsController {
         return ResponseEntity.ok(submittedAcronym);
     }
 
+    // Takes in a string to replace the current description of a selected acronym with
     @PutMapping(path = "editAcronymDescription")
     @ResponseBody
     public ResponseEntity editAcronymDescription(HttpServletRequest request, @RequestBody Acronyms editRequest) {
+        // If the user is not logged in, return a 401 unauthorised
         if (!isAuthenticated(request)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
@@ -154,21 +153,20 @@ public class AcronymsController {
         Acronyms acronym = optionalAcronym.get();
         // Update the description   
         acronym.setDescription(editRequest.getDescription());
-        // Save the updated acronym
+        // Save the updated acronym to the database
         repositoryAcronyms.save(acronym);
         return ResponseEntity.ok(acronym);
     }
 
-
+    // Takes in the http request and checks if the usr is logged in
     private boolean isAuthenticated(HttpServletRequest request) {
         String jwt = request.getHeader("Authorization");
         System.out.println("Authorization header value: " + jwt); // Add logging statement
 
+        // Checks if the request header has the jwt in and returns true if it does, and false if not
         if (jwt != null && jwt.startsWith("Bearer ")) {
             return true;
         }
         return false;
     }
-
-
 }
