@@ -25,6 +25,7 @@ public class UsersController {
     private UsersRepository repositoryUsers;
     private SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
+    // Endpoint to return all the users in the database
     @GetMapping(path = "/getAllUsers")
     @ResponseBody
     public String getAllUsers() {
@@ -41,6 +42,7 @@ public class UsersController {
         return result;
     }
 
+    // takes in a username and password and checks to see if the username and password is correct
     @PostMapping(path = "/login")
     @ResponseBody
     public String login(@RequestParam("submittedUsername") String submittedUsername, @RequestParam("submittedPassword") String submittedPassword) {
@@ -49,6 +51,7 @@ public class UsersController {
         if (userOptional.isPresent()) {
 
             Users user = userOptional.get();
+            // If the username and password is correct, generate a jwt and return it
             if (user.getPassword().equals(submittedPassword)) {
                 String jwt = generateJWT(user.getUsername());
                 return jwt;
@@ -57,21 +60,7 @@ public class UsersController {
         return null;
     }
 
-    private boolean isAuthenticated(HttpServletRequest request) {
-        String jwt = request.getHeader("Authorization");
-
-        if (jwt != null && jwt.startsWith("Bearer ")) {
-            String token = jwt.substring(7);
-            try {
-                Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
-                return true;
-            } catch (Exception e) {
-                return false;
-            }
-        }
-        return false;
-    }
-
+    // Generates a Json Web Token using a secret key
     private String generateJWT(String username) {
         System.out.println("Called generateJWT method");
 
