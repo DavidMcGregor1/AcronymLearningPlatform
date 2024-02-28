@@ -163,6 +163,11 @@ addNewAcronymBtn.addEventListener("click", () => {
 // Checks if the user is logged in when they click the edit button. If they are, they see the edit form, if they are not, they see the login form.
 const editDescriptionBtn = document.getElementById("edit-description-button");
 editDescriptionBtn.addEventListener("click", () => {
+  const currentDescription =
+    document.getElementById("description-text").innerText;
+  const newDescriptionTextArea = document.getElementById("newDescription");
+  newDescriptionTextArea.value = currentDescription;
+
   editAddOrLogin = "edit";
   if (isLoggedIn()) {
     descriptionSection.classList.add("hidden");

@@ -152,12 +152,15 @@ allButton.addEventListener("click", () => {
   highlightFirstAcronym();
 });
 
-// Updates the table with list of acronyms passed in
+// Updates the table content based on the provided list of acronyms
 function updateTableContent(acronyms) {
   var tbody = document.querySelector("#acronym-table tbody");
   tbody.innerHTML = "";
 
-  acronyms = acronyms || originalAcronyms;
+  // Sort acronyms alphabetically by acronym
+  acronyms.sort((a, b) => {
+    return a.acronym.localeCompare(b.acronym);
+  });
 
   acronyms.forEach(function (acronym) {
     var row = document.createElement("tr");
