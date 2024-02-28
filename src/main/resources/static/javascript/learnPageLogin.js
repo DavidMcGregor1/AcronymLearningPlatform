@@ -83,14 +83,9 @@ function login() {
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
       if (xhr.status === 200) {
-        console.log("returned a 200 from the login endpoint");
         const jwt = xhr.responseText;
-        console.log(
-          "this is the jtw that was returned from the login endpoint -> " + jwt
-        );
 
         if (jwt) {
-          console.log("If the server side returns a jwt this should be shown");
           localStorage.setItem("jwt", jwt);
 
           // if the user clicked the add acronym button to get to this login form then show the add acronym form
