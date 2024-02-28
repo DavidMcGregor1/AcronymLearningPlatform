@@ -56,7 +56,6 @@ public class UsersController {
 
     // Generates a Json Web Token using a secret key
     private String generateJWT(String username) {
-        System.out.println("Called generateJWT method");
 
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
@@ -66,7 +65,6 @@ public class UsersController {
                 .setExpiration(expiration)
                 .signWith(secretKey)
                 .compact();
-        System.out.println("Token -> " + token);
         return token;
     }
 }
